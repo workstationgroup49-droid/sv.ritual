@@ -17,12 +17,8 @@ const lato = Lato({
 })
 
 export const metadata: Metadata = {
-  title: 'СВ-РІТУАЛ — Ритуальне агентство',
+  title: 'SV-RITUAL — Ритуальне агентство',
   description: 'Професійний супровід у важкий момент. Ритуальні послуги з повагою та гідністю.',
-  icons: {
-    icon: '/images/logo.png',
-    apple: '/images/logo.png',
-  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

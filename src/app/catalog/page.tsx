@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useProducts } from '@/hooks/useProducts'
 import { useCatalogFilter } from '@/hooks/useCatalogFilter'
@@ -12,20 +12,23 @@ import { ProductGrid } from '@/components/catalog/ProductGrid'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { ProductCategory } from '@/types/product'
 
-export default function CatalogPage() {
+function CatalogContent() {
   const { products, isLoading } = useProducts()
   const searchParams = useSearchParams()
 
   const {
-    search, setSearch,
-    category, setCategory,
-    sort, setSort,
-    inStock, setInStock,
+    search,
+    setSearch,
+    category,
+    setCategory,
+    sort,
+    setSort,
+    inStock,
+    setInStock,
     filtered,
     total,
   } = useCatalogFilter(products)
 
-  // Устанавливаем категорию из URL при загрузке
   useEffect(() => {
     const cat = searchParams.get('category')
     if (cat) {
@@ -38,7 +41,6 @@ export default function CatalogPage() {
       <Header />
       <main className="min-h-screen bg-obsidian pt-24 pb-20">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
-
           <SectionTitle
             eyebrow="Ритуальні товари"
             title="Каталог"
@@ -51,7 +53,6 @@ export default function CatalogPage() {
           </div>
 
           <div className="flex flex-col lg:flex-row gap-10">
-
             <aside className="w-full lg:w-56 shrink-0">
               <FilterPanel
                 category={category}
@@ -67,11 +68,18 @@ export default function CatalogPage() {
             <div className="flex-1">
               <ProductGrid products={filtered} isLoading={isLoading} />
             </div>
-
           </div>
         </div>
       </main>
       <Footer />
     </>
+  )
+}
+
+export default function CatalogPage() {
+  return (
+    <Suspense fallback={<div>Завантаження...</div>}>
+      <CatalogContent />
+    </Suspense>
   )
 }

@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState, useRef, useEffect } from 'react'
 import { cn } from '@/lib/utils'
@@ -80,23 +79,13 @@ export function Header() {
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
 
           {/* Логотип */}
-          <Link href="/" className="flex items-center gap-3 group shrink-0">
-            <Image
-              src="/images/logo.png"
-              alt="СВ-РІТУАЛ"
-              width={42}
-              height={42}
-              className="object-contain rounded-sm"
-              priority
-            />
-            <div className="flex flex-col leading-none">
-              <span className="font-display text-xl md:text-2xl font-light text-cream tracking-widest group-hover:text-gold transition-colors duration-300">
-                СВ-РІТУАЛ
-              </span>
-              <span className="font-body text-[8px] md:text-[9px] tracking-[0.4em] text-mist uppercase">
-                Ритуальне агентство
-              </span>
-            </div>
+          <Link href="/" className="flex flex-col leading-none group shrink-0">
+            <span className="font-display text-xl md:text-2xl font-light text-cream tracking-widest group-hover:text-gold transition-colors duration-300">
+              СВ-РІТУАЛ
+            </span>
+            <span className="font-body text-[8px] md:text-[9px] tracking-[0.4em] text-mist uppercase">
+              Ритуальне агентство
+            </span>
           </Link>
 
           {/* Десктоп навигация */}

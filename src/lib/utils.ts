@@ -5,11 +5,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-// Форматування ціни з копійок у гривні
+// Форматирование цены из копеек в рубли
 export function formatPrice(kopecks: number): string {
-  return new Intl.NumberFormat('uk-UA', {
+  return new Intl.NumberFormat('ru-RU', {
     style:    'currency',
-    currency: 'UAH',
+    currency: 'RUB',
     maximumFractionDigits: 0,
   }).format(kopecks / 100)
 }

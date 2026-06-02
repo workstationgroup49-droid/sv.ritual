@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { Phone, MapPin } from 'lucide-react'
 import { Divider } from '@/components/ui/Divider'
 
@@ -46,16 +45,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
 
           <div>
-            <div className="flex items-center gap-3 mb-2">
-              <Image
-                src="/images/logo.png"
-                alt="СВ-РІТУАЛ"
-                width={56}
-                height={56}
-                className="object-contain rounded-sm"
-              />
-              <p className="font-display text-3xl font-light text-cream tracking-widest">СВ-РІТУАЛ</p>
-            </div>
+            <p className="font-display text-3xl font-light text-cream tracking-widest mb-2">СВ-РІТУАЛ</p>
             <p className="font-body text-[10px] tracking-[0.4em] text-gold uppercase mb-4">Ритуальне агентство</p>
             <p className="font-body text-mist text-sm leading-relaxed mb-6">
               Професійний супровід у найважчий момент життя. Працюємо з повагою, гідністю та турботою.
