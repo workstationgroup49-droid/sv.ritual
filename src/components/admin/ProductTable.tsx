@@ -1,7 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { Product, CATEGORY_LABELS } from '@/types/product'
+import { Product } from '@/types/product'
+import { useCategories } from '@/hooks/useCategories'
 import { formatPrice } from '@/lib/utils'
 import { Pencil, Trash2, Package } from 'lucide-react'
 
@@ -12,6 +13,12 @@ interface ProductTableProps {
 }
 
 export function ProductTable({ products, onEdit, onDelete }: ProductTableProps) {
+  const { categories } = useCategories()
+
+  // Быстрый поиск label по slug
+  const getCategoryLabel = (slug: string) =>
+    categories.find(c => c.slug === slug)?.label ?? slug
+
   if (products.length === 0) {
     return (
       <div className="text-center py-20">
@@ -66,7 +73,7 @@ export function ProductTable({ products, onEdit, onDelete }: ProductTableProps) 
 
               <td className="px-4 py-3">
                 <span className="font-body text-xs text-mist">
-                  {CATEGORY_LABELS[product.category]}
+                  {getCategoryLabel(product.category)}
                 </span>
               </td>
 

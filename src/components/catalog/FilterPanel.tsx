@@ -1,28 +1,19 @@
 'use client'
 
-import { ProductCategory, CATEGORY_LABELS } from '@/types/product'
+import { useCategories } from '@/hooks/useCategories'
 import { cn } from '@/lib/utils'
 
 type SortOption = 'default' | 'price_asc' | 'price_desc' | 'name_asc'
 
 interface FilterPanelProps {
-  category:   ProductCategory | 'all'
+  category:   string
   sort:       SortOption
   inStock:    boolean
-  onCategory: (c: ProductCategory | 'all') => void
+  onCategory: (c: string) => void
   onSort:     (s: SortOption) => void
   onInStock:  (v: boolean) => void
   total:      number
 }
-
-const categories: { value: ProductCategory | 'all'; label: string }[] = [
-  { value: 'all',         label: 'Всі товари' },
-  { value: 'caskets',     label: CATEGORY_LABELS.caskets },
-  { value: 'wreaths',     label: CATEGORY_LABELS.wreaths },
-  { value: 'accessories', label: CATEGORY_LABELS.accessories },
-  { value: 'flowers',     label: CATEGORY_LABELS.flowers },
-  { value: 'monuments',   label: CATEGORY_LABELS.monuments },
-]
 
 const sortOptions: { value: SortOption; label: string }[] = [
   { value: 'default',    label: 'За замовчуванням' },
@@ -36,6 +27,8 @@ export function FilterPanel({
   onCategory, onSort, onInStock,
   total,
 }: FilterPanelProps) {
+  const { categories, isLoading } = useCategories()
+
   return (
     <div className="space-y-6">
 
@@ -48,21 +41,45 @@ export function FilterPanel({
           Категорія
         </p>
         <ul className="space-y-1">
-          {categories.map(cat => (
-            <li key={cat.value}>
-              <button
-                onClick={() => onCategory(cat.value)}
-                className={cn(
-                  'w-full text-left font-body text-sm px-3 py-2 transition-colors duration-200',
-                  category === cat.value
-                    ? 'text-cream bg-white/5 border-l-2 border-gold'
-                    : 'text-mist hover:text-cream border-l-2 border-transparent'
-                )}
-              >
-                {cat.label}
-              </button>
+          {/* Всі товари */}
+          <li>
+            <button
+              onClick={() => onCategory('all')}
+              className={cn(
+                'w-full text-left font-body text-sm px-3 py-2 transition-colors duration-200',
+                category === 'all'
+                  ? 'text-cream bg-white/5 border-l-2 border-gold'
+                  : 'text-mist hover:text-cream border-l-2 border-transparent'
+              )}
+            >
+              Всі товари
+            </button>
+          </li>
+
+          {isLoading ? (
+            <li className="px-3 py-2">
+              <div className="flex gap-2 items-center text-mist/40">
+                <div className="w-3 h-3 border border-mist/20 border-t-gold/40 rounded-full animate-spin" />
+                <span className="font-body text-xs">Завантаження...</span>
+              </div>
             </li>
-          ))}
+          ) : (
+            categories.map(cat => (
+              <li key={cat.id}>
+                <button
+                  onClick={() => onCategory(cat.slug)}
+                  className={cn(
+                    'w-full text-left font-body text-sm px-3 py-2 transition-colors duration-200',
+                    category === cat.slug
+                      ? 'text-cream bg-white/5 border-l-2 border-gold'
+                      : 'text-mist hover:text-cream border-l-2 border-transparent'
+                  )}
+                >
+                  {cat.label}
+                </button>
+              </li>
+            ))
+          )}
         </ul>
       </div>
 

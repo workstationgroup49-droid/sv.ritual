@@ -7,10 +7,11 @@ import { useAdminAuth } from '@/hooks/useAdminAuth'
 import { ProductTable } from '@/components/admin/ProductTable'
 import { ProductForm } from '@/components/admin/ProductForm'
 import { UsersPanel } from '@/components/admin/UsersPanel'
-import { Plus, LogOut, RefreshCw, Package, Users } from 'lucide-react'
+import { CategoriesPanel } from '@/components/admin/CategoriesPanel'
+import { Plus, LogOut, RefreshCw, Package, Users, Tag } from 'lucide-react'
 
 type Mode = 'list' | 'add' | 'edit'
-type Tab  = 'products' | 'users'
+type Tab  = 'products' | 'categories' | 'users'
 
 export default function AdminDashboardPage() {
   const { products, isLoading, error, setError, handleAdd, handleUpdate, handleDelete } =
@@ -49,13 +50,19 @@ export default function AdminDashboardPage() {
     return ok
   }
 
+  const tabs = [
+    { id: 'products',   label: 'Товари',      icon: Package },
+    { id: 'categories', label: 'Категорії',   icon: Tag     },
+    { id: 'users',      label: 'Користувачі', icon: Users   },
+  ]
+
   return (
     <main className="min-h-screen bg-obsidian">
 
       {/* Шапка */}
       <header className="bg-graphite border-b border-white/5 px-6 h-16 flex items-center justify-between">
         <div>
-          <span className="font-display text-xl text-cream tracking-widest">РЕКВІЄМ</span>
+          <span className="font-display text-xl text-cream tracking-widest">СВ-РІТУАЛ</span>
           <span className="font-body text-xs text-mist ml-3 tracking-wider">/ Панель керування</span>
         </div>
         <button
@@ -71,13 +78,10 @@ export default function AdminDashboardPage() {
       {/* Вкладки */}
       <div className="border-b border-white/5 bg-graphite">
         <div className="max-w-6xl mx-auto px-6 flex">
-          {[
-            { id: 'products', label: 'Товари',      icon: Package },
-            { id: 'users',    label: 'Користувачі', icon: Users   },
-          ].map(t => (
+          {tabs.map(t => (
             <button
               key={t.id}
-              onClick={() => setTab(t.id as Tab)}
+              onClick={() => { setTab(t.id as Tab); setMode('list') }}
               className={`flex items-center gap-2 px-6 py-4 font-body text-xs tracking-widest uppercase
                           border-b-2 transition-colors duration-200 ${
                 tab === t.id
@@ -175,6 +179,9 @@ export default function AdminDashboardPage() {
             )}
           </>
         )}
+
+        {/* Вкладка: Категорії */}
+        {tab === 'categories' && <CategoriesPanel />}
 
         {/* Вкладка: Користувачі */}
         {tab === 'users' && <UsersPanel />}

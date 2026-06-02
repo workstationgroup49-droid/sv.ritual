@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { useProducts } from '@/hooks/useProducts'
 import { useCatalogFilter } from '@/hooks/useCatalogFilter'
 import { Header } from '@/components/layout/Header'
@@ -8,9 +10,11 @@ import { SearchBar } from '@/components/catalog/SearchBar'
 import { FilterPanel } from '@/components/catalog/FilterPanel'
 import { ProductGrid } from '@/components/catalog/ProductGrid'
 import { SectionTitle } from '@/components/ui/SectionTitle'
+import { ProductCategory } from '@/types/product'
 
 export default function CatalogPage() {
   const { products, isLoading } = useProducts()
+  const searchParams = useSearchParams()
 
   const {
     search, setSearch,
@@ -21,11 +25,19 @@ export default function CatalogPage() {
     total,
   } = useCatalogFilter(products)
 
+  // Устанавливаем категорию из URL при загрузке
+  useEffect(() => {
+    const cat = searchParams.get('category')
+    if (cat) {
+      setCategory(cat as ProductCategory | 'all')
+    }
+  }, [searchParams, setCategory])
+
   return (
     <>
       <Header />
       <main className="min-h-screen bg-obsidian pt-24 pb-20">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
 
           <SectionTitle
             eyebrow="Ритуальні товари"

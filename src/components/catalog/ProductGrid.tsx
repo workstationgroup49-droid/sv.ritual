@@ -1,11 +1,10 @@
 'use client'
 
-'use client'
-
+import { useState } from 'react'
 import { Product } from '@/types/product'
 import { ProductCard } from './ProductCard'
+import { ProductModal } from './ProductModal'
 import { Package } from 'lucide-react'
-import { useReveal } from '@/hooks/useReveal'
 
 interface ProductGridProps {
   products:  Product[]
@@ -13,18 +12,16 @@ interface ProductGridProps {
 }
 
 export function ProductGrid({ products, isLoading }: ProductGridProps) {
-  const ref = useReveal()
+  const [selected, setSelected] = useState<Product | null>(null)
 
   if (isLoading) {
     return (
-    <div ref={ref as React.RefObject<HTMLDivElement>}>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-  {products.map((product, i) => (
-    <div key={product.id} className={`reveal reveal-delay-${Math.min(i % 3 + 1, 4)}`}>
-      <ProductCard product={product} />
-    </div>
-  ))}
-      </div> </div>
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="bg-graphite border border-white/5 animate-pulse"
+               style={{ paddingBottom: '120%' }} />
+        ))}
+      </div>
     )
   }
 
@@ -39,10 +36,21 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {products.map(product => (
-        <ProductCard key={product.id} product={product} />
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {products.map(product => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            onOpen={setSelected}
+          />
+        ))}
+      </div>
+
+      <ProductModal
+        product={selected}
+        onClose={() => setSelected(null)}
+      />
+    </>
   )
 }

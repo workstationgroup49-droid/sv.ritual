@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Product, ProductCategory, ProductInsert, CATEGORY_LABELS } from '@/types/product'
+import { Product, ProductInsert } from '@/types/product'
+import { useCategories } from '@/hooks/useCategories'
 import { ImageUploader } from './ImageUploader'
 
 interface ProductFormProps {
@@ -18,13 +19,18 @@ const inputClass = `
 `
 
 export function ProductForm({ initial, onSubmit, onCancel, isLoading }: ProductFormProps) {
+  const { categories, isLoading: catsLoading } = useCategories()
+
   const [name,        setName]        = useState(initial?.name        ?? '')
   const [description, setDescription] = useState(initial?.description ?? '')
   const [price,       setPrice]       = useState(initial ? String(initial.price / 100) : '')
-  const [category,    setCategory]    = useState<ProductCategory>(initial?.category ?? 'caskets')
+  const [category,    setCategory]    = useState<string>(initial?.category ?? '')
   const [inStock,     setInStock]     = useState(initial?.in_stock    ?? true)
   const [imageFile,   setImageFile]   = useState<File | undefined>()
   const [error,       setError]       = useState('')
+
+  // Устанавливаем первую категорию по умолчанию когда загрузились
+  const effectiveCategory = category || (categories[0]?.slug ?? '')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -36,12 +42,17 @@ export function ProductForm({ initial, onSubmit, onCancel, isLoading }: ProductF
       return
     }
 
+    if (!effectiveCategory) {
+      setError('Виберіть категорію')
+      return
+    }
+
     const ok = await onSubmit(
       {
         name,
         description: description || null,
         price:       Math.round(priceNum * 100),
-        category,
+        category:    effectiveCategory,
         in_stock:    inStock,
         sort_order:  initial?.sort_order ?? 0,
       },
@@ -60,7 +71,7 @@ export function ProductForm({ initial, onSubmit, onCancel, isLoading }: ProductF
         </label>
         <input
           value={name} onChange={e => setName(e.target.value)}
-          required placeholder="Труна преміум «Дубова»"
+          required placeholder="Надгробок преміум"
           className={inputClass}
         />
       </div>
@@ -93,15 +104,21 @@ export function ProductForm({ initial, onSubmit, onCancel, isLoading }: ProductF
           <label className="font-body text-xs tracking-wider text-mist uppercase mb-2 block">
             Категорія *
           </label>
-          <select
-            value={category}
-            onChange={e => setCategory(e.target.value as ProductCategory)}
-            className={inputClass + ' cursor-pointer'}
-          >
-            {Object.entries(CATEGORY_LABELS).map(([val, label]) => (
-              <option key={val} value={val}>{label}</option>
-            ))}
-          </select>
+          {catsLoading ? (
+            <div className={inputClass + ' flex items-center text-mist/40'}>
+              Завантаження...
+            </div>
+          ) : (
+            <select
+              value={effectiveCategory}
+              onChange={e => setCategory(e.target.value)}
+              className={inputClass + ' cursor-pointer'}
+            >
+              {categories.map(cat => (
+                <option key={cat.id} value={cat.slug}>{cat.label}</option>
+              ))}
+            </select>
+          )}
         </div>
       </div>
 
