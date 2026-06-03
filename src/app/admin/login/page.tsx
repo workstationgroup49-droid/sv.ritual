@@ -18,7 +18,7 @@ export default function AdminLoginPage() {
 
         <div className="text-center mb-10">
           <p className="font-display text-4xl font-light text-cream tracking-widest mb-2">
-            РЕКВІЄМ
+            РИТУАЛ
           </p>
           <p className="font-body text-xs tracking-[0.3em] text-gold uppercase">
             Панель керування

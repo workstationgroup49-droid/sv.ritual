@@ -6,18 +6,18 @@ import { Divider } from '@/components/ui/Divider'
 import { useReveal } from '@/hooks/useReveal'
 
 const stats = [
-  { value: '20+', label: 'Років досвіду' },
-  { value: '5 000+', label: 'Родин підтримали' },
-  { value: '24/7', label: 'Працюємо без вихідних' },
-  { value: '100%', label: 'Гарантія виконання' },
+  { value: '10+', label: 'Років у виробництві' },
+  { value: '1 000+', label: 'Виготовлених пам\'ятників' },
+  { value: '100%', label: 'Натуральний граніт' },
+  { value: '5★', label: 'Якість та гарантія' },
 ]
 
 const reasons = [
-  'Повний супровід на всіх етапах — від дзвінка до завершення',
-  'Власний автопарк ритуального транспорту',
-  'Документальне оформлення без черг',
-  'Прозорі фіксовані ціни без прихованих доплат',
-  'Психологічна підтримка для близьких',
+  'Власне виробництво — без посередників та переплат',
+  'Натуральний граніт українського та імпортного видобутку',
+  'Індивідуальний підхід до кожного замовлення',
+  'Портретне різьблення та будь-які написи',
+  'Доставка та встановлення по всій області',
 ]
 
 export function AboutSection() {
@@ -32,7 +32,7 @@ export function AboutSection() {
             <div className="relative h-[520px] overflow-hidden">
               <Image
                 src="/images/about-team.jpg"
-                alt="Наша команда"
+                alt="Наше виробництво"
                 fill
                 className="object-cover opacity-70"
               />
@@ -42,16 +42,16 @@ export function AboutSection() {
 
             <div className="absolute bottom-8 left-8 right-8 bg-obsidian/80 backdrop-blur-sm border border-white/10 p-6">
               <p className="font-display text-lg italic text-cream/80 leading-relaxed">
-                «Наша місія — допомогти родині пройти цей шлях з гідністю, не турбуючись ні про що.»
+                «Кожен пам&apos;ятник — це не просто камінь. Це спогад, який залишається назавжди.»
               </p>
-              <p className="font-body text-gold text-xs tracking-wider mt-3">— Засновник агентства</p>
+              <p className="font-body text-gold text-xs tracking-wider mt-3">— Засновник майстерні</p>
             </div>
           </div>
 
           <div className="reveal reveal-delay-2">
             <SectionTitle
               eyebrow="Про нас"
-              title="Понад 20 років поруч у важкий момент"
+              title="Гранітна майстерня з власним виробництвом"
               centered={false}
             />
 

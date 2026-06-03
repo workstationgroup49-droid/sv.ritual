@@ -9,7 +9,7 @@ const PHONE_DISPLAY = '+380 (97) 018-71-87'
 const messengers = [
   {
     name: 'Telegram',
-    href: `https://t.me/${PHONE.replace('+', '')}`,
+    href: `https://t.me/+${PHONE.replace('+', '')}`,
     color: 'hover:text-[#2AABEE]',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -49,14 +49,14 @@ export function Footer() {
             <div className="flex items-center gap-3 mb-2">
               <Image
                 src="/images/logo.png"
-                alt="СВ-РІТУАЛ"
+                alt="Ритуал"
                 width={56}
                 height={56}
                 className="object-contain rounded-sm"
               />
-              <p className="font-display text-3xl font-light text-cream tracking-widest">СВ-РІТУАЛ</p>
+              <p className="font-display text-3xl font-light text-cream tracking-widest">Ритуал</p>
             </div>
-            <p className="font-body text-[10px] tracking-[0.4em] text-gold uppercase mb-4">Ритуальне агентство</p>
+            <p className="font-body text-[10px] tracking-[0.4em] text-gold uppercase mb-4">Гранітна майстерня</p>
             <p className="font-body text-mist text-sm leading-relaxed mb-6">
               Професійний супровід у найважчий момент життя. Працюємо з повагою, гідністю та турботою.
             </p>
@@ -137,7 +137,7 @@ export function Footer() {
         <Divider />
 
         <p className="font-body text-center text-mist/40 text-xs tracking-wider">
-          © {new Date().getFullYear()} СВ-РІТУАЛ. Всі права захищені.
+          © {new Date().getFullYear()} Ритуал. Всі права захищені.
         </p>
       </div>
     </footer>

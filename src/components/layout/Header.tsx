@@ -13,10 +13,12 @@ const PHONE = '+380970187187'
 const PHONE_DISPLAY = '+380 (97) 018-71-87'
 
 const navLinks = [
-  { href: '/',         label: 'Головна' },
-  { href: '/#about',   label: 'Про нас' },
-  { href: '/#contact', label: 'Контакти' },
-  { href: '/#contact', label: 'Зразки граніту' },
+  { href: '/',           label: 'Головна' },
+  { href: '/catalog',    label: 'Каталог' },
+  { href: '/granite',    label: 'Зразки граніту' },
+  { href: '/exhibition', label: 'Виставка' },
+  { href: '/#about',     label: 'Про нас' },
+  { href: '/#contact',   label: 'Контакти' },
 ]
 
 const messengers = [
@@ -83,7 +85,7 @@ export function Header() {
           <Link href="/" className="flex items-center gap-3 group shrink-0">
             <Image
               src="/images/logo.png"
-              alt="СВ-РІТУАЛ"
+              alt="Ритуал"
               width={42}
               height={42}
               className="object-contain rounded-sm"
@@ -91,10 +93,10 @@ export function Header() {
             />
             <div className="flex flex-col leading-none">
               <span className="font-display text-xl md:text-2xl font-light text-cream tracking-widest group-hover:text-gold transition-colors duration-300">
-                СВ-РІТУАЛ
+                Ритуал
               </span>
               <span className="font-body text-[8px] md:text-[9px] tracking-[0.4em] text-mist uppercase">
-                Ритуальне агентство
+                Гранітна майстерня
               </span>
             </div>
           </Link>
@@ -264,7 +266,7 @@ export function Header() {
           </nav>
 
           <div className="p-5 border-t border-white/5">
-            <p className="font-display text-lg text-cream/20 tracking-widest text-center">СВ-РІТУАЛ</p>
+            <p className="font-display text-lg text-cream/20 tracking-widest text-center">Ритуал</p>
           </div>
         </div>
       </div>

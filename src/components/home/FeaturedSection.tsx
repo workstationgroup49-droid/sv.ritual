@@ -22,12 +22,14 @@ export function FeaturedSection() {
 
   useEffect(() => {
     getProducts().then(all => {
-      // Беремо по 1 товару з кожної категорії — максимум 8
-      const seen = new Set<string>()
+      // Беремо по 2 товари з кожної категорії — рівномірно, максимум 8
+      const counts: Record<string, number> = {}
       const featured: Product[] = []
       for (const p of all) {
-        if (!seen.has(p.category) && p.in_stock) {
-          seen.add(p.category)
+        if (!p.in_stock) continue
+        const c = counts[p.category] ?? 0
+        if (c < 2) {
+          counts[p.category] = c + 1
           featured.push(p)
           if (featured.length >= 8) break
         }

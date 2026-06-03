@@ -10,7 +10,7 @@ export function HeroSection() {
 
       <Image
         src="/images/hero-bg.jpg"
-        alt="Фон головної сторінки"
+        alt="Гранітна майстерня"
         fill
         priority
         className="object-cover opacity-30"
@@ -21,16 +21,16 @@ export function HeroSection() {
       <div className="relative z-20 text-center px-6 max-w-4xl mx-auto">
 
         <p className="deco-line font-body text-gold text-[11px] tracking-[0.5em] uppercase mb-8 animate-fade-in animate-hidden">
-          Ритуальне агентство
+          Гранітна майстерня
         </p>
 
         <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-light text-cream leading-[1.05] mb-6 animate-slide-up animate-hidden">
-          Гідне прощання<br/>
-          <span className="text-gold/80 italic">в останню путь</span>
+          Пам&apos;ятники з граніту<br/>
+          <span className="text-gold/80 italic">власного виробництва</span>
         </h1>
 
         <p className="font-body text-mist text-base md:text-lg leading-relaxed max-w-xl mx-auto mb-12 animate-slide-up-d animate-hidden">
-          Ми беремо на себе організацію у найважчий момент. Шанобливо, професійно, з турботою про кожну деталь.
+          Виготовляємо гранітні пам&apos;ятники, надгробки та меморіальні вироби. Широкий вибір моделей, індивідуальне різьблення, доступні ціни.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up-d2 animate-hidden">
