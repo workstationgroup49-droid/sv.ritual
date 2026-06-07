@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useContactForm } from '@/hooks/useContactForm'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { Button } from '@/components/ui/Button'
@@ -17,61 +18,57 @@ const inputClass = `
 
 const services = [
   {
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-        <path d="M12 6v6l4 2"/>
-      </svg>
-    ),
+    number: '01',
     title: 'Організація та проведення поховань',
-    description: 'Повний супровід похоронної церемонії та оформлення всіх необхідних документів. Беремо на себе всі організаційні питання, щоб ви могли зосередитись на прощанні.',
-    features: ['Оформлення документів', 'Підготовка тіла', 'Організація церемонії', 'Координація всіх служб'],
+    description: 'Допомагаємо організувати поховання від першого звернення до завершення всіх необхідних процедур. Беремо на себе вирішення організаційних питань та супроводжуємо родину на кожному етапі.',
+    features: ['Оформлення всіх документів', 'Підготовка тіла до похорону', 'Організація церемонії прощання', 'Координація всіх служб', 'Супровід на кожному етапі'],
+    image: null,
   },
   {
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M19 17H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2z"/>
-        <circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>
-        <path d="M3 11h18"/>
-      </svg>
-    ),
+    number: '02',
     title: 'Елітні катафалки',
-    description: 'Сучасний представницький транспорт для проведення похоронних процесій. Гідне прощання з урахуванням усіх традицій та побажань родини.',
-    features: ['Сучасні автомобілі', 'Досвідчені водії', 'Будь-який маршрут', 'Повна підготовка'],
+    description: 'Надаємо сучасний спеціалізований транспорт для перевезення померлих та супроводу похоронної процесії. Гарантуємо охайний вигляд транспорту та професійне обслуговування.',
+    features: ['Представницькі автомобілі преміум-класу', 'Досвідчені та тактовні водії', 'Будь-який маршрут у межах регіону', 'Повна підготовка транспорту', 'Своєчасне прибуття'],
+    image: null,
   },
   {
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
-        <circle cx="12" cy="10" r="3"/>
-      </svg>
-    ),
+    number: '03',
     title: 'Кремація',
-    description: 'Організація кремації з усіма необхідними документами та вибором урни. Індивідуальний підхід та повний супровід усіх процедур.',
-    features: ['Оформлення дозволів', 'Вибір урни', 'Транспортування', 'Організація прощання'],
+    description: 'Організовуємо кремацію та допомагаємо з оформленням необхідних документів. Надаємо консультації щодо всіх етапів проведення процедури та допомагаємо з вибором урни.',
+    features: ['Оформлення дозволів та документів', 'Широкий вибір урн', 'Транспортування до крематорію', 'Організація прощальної церемонії', 'Повний консультаційний супровід'],
+    image: null,
   },
   {
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M9 17H5l-1-1V8l1-1h4m6 10h4l1-1V8l-1-1h-4"/>
-        <rect x="9" y="6" width="6" height="12" rx="1"/>
-      </svg>
-    ),
-    title: 'Перевезення тіла по Україні',
-    description: 'Транспортування померлих між містами та областями України. Спеціалізований транспорт, дотримання всіх санітарних норм та законодавчих вимог.',
-    features: ['По всій Україні', 'Санітарні норми', 'Швидке реагування', 'Документальний супровід'],
+    number: '04',
+    title: 'Перевезення померлих по Україні',
+    description: 'Здійснюємо транспортування померлих між містами та областями України. Допомагаємо з оформленням документів та забезпечуємо дотримання всіх необхідних санітарних вимог.',
+    features: ['По всій території України', 'Дотримання санітарних норм', 'Швидке реагування на виклик', 'Оформлення транспортних документів', 'Спеціалізований транспорт'],
+    image: null,
   },
   {
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M3 20h18M5 20V8l7-5 7 5v12"/>
-        <path d="M9 20v-5h6v5"/>
-      </svg>
-    ),
-    title: 'Копка могил',
-    description: 'Підготовка місця поховання відповідно до вимог кладовища. Ручна та механізована копка, оформлення та впорядкування місця поховання.',
-    features: ['Ручна та механізована', 'Будь-яке кладовище', 'Оформлення місця', 'Швидко та якісно'],
+    number: '05',
+    title: 'Підготовка місця поховання',
+    description: 'Виконуємо копання могил та підготовку місця поховання відповідно до вимог кладовищ та побажань родини. Ручна та механізована копка, впорядкування після церемонії.',
+    features: ['Ручна та механізована копка', 'Робота на будь-якому кладовищі', 'Відповідність вимогам кладовища', 'Впорядкування після церемонії', 'Швидко та якісно'],
+    image: null,
   },
+]
+
+const monumentTypes = [
+  "Одинарні пам'ятники",
+  "Подвійні пам'ятники",
+  'Сімейні меморіальні комплекси',
+  "Військові пам'ятники",
+  "Дитячі пам'ятники",
+  'Ексклюзивні авторські проєкти',
+]
+
+const artFeatures = [
+  'Портретне гравіювання',
+  'Кольорові фотографії на граніті',
+  'Написи та епітафії',
+  'Художнє різьблення',
+  'Авторські ескізи та макети',
 ]
 
 export function RitualServicesPage() {
@@ -79,10 +76,11 @@ export function RitualServicesPage() {
 
   return (
     <>
-      {/* Hero */}
+      {/* ═══ HERO ═══ */}
       <section className="relative pt-32 pb-20 bg-obsidian overflow-hidden">
         <div className="absolute inset-0 opacity-5"
              style={{ backgroundImage: 'repeating-linear-gradient(45deg, #c9a84c 0, #c9a84c 1px, transparent 0, transparent 50%)', backgroundSize: '20px 20px' }} />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/10 to-transparent" />
 
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
           <p className="deco-line font-body text-gold text-[11px] tracking-[0.5em] uppercase mb-6">
@@ -96,113 +94,228 @@ export function RitualServicesPage() {
             Повний спектр ритуальних послуг з повагою та гідністю. Ми поруч у найважчу хвилину —
             беремо на себе всі організаційні питання, щоб ви могли гідно попрощатись з близькою людиною.
           </p>
-
-          {/* Швидкий дзвінок */}
           <a href={`tel:${PHONE}`}
              className="inline-flex items-center gap-3 bg-bordeaux hover:bg-burgundy text-cream
                         font-body text-sm tracking-widest uppercase px-10 py-4
-                        transition-all duration-300 mb-6">
+                        transition-all duration-300 mb-4">
             <Phone size={16} />
-            Зателефонувати зараз — {PHONE_DISPLAY}
+            Зателефонувати — {PHONE_DISPLAY}
           </a>
           <p className="font-body text-mist/40 text-xs tracking-wider">Цілодобово, без вихідних</p>
         </div>
 
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
-          <span className="font-body text-[9px] tracking-[0.4em] uppercase text-mist/20">Послуги</span>
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
           <ChevronDown size={18} className="text-gold/30 animate-bounce" />
         </div>
       </section>
 
-      {/* Картки послуг */}
-      <section className="py-20 bg-graphite">
-        <div className="max-w-7xl mx-auto px-6">
-          <SectionTitle
-            eyebrow="Що ми пропонуємо"
-            title="Наші послуги"
-            subtitle="Кожна послуга виконується з максимальною турботою та повагою до вашої родини"
-          />
+      {/* ═══ ПОСЛУГИ — у стилі AboutSection ═══ */}
+      <section className="bg-obsidian">
+        {services.map((service, i) => {
+          const isEven = i % 2 === 0
+          return (
+            <div key={service.number} className="border-t border-white/5">
+              <div className="max-w-7xl mx-auto">
+                <div className={`grid grid-cols-1 lg:grid-cols-2 ${isEven ? '' : 'lg:grid-flow-dense'}`}>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, i) => (
-              <div key={i}
-                className="group bg-ash border border-white/5 p-8
-                           hover:border-gold/20 hover:bg-ash/60
-                           transition-all duration-500 flex flex-col">
+                  {/* Фото */}
+                  <div className={`relative h-72 lg:h-auto min-h-[380px] overflow-hidden ${isEven ? '' : 'lg:col-start-2'}`}>
+                    {service.image ? (
+                      <img src={service.image} alt={service.title} className="absolute inset-0 w-full h-full object-cover opacity-70" />
+                    ) : (
+                      /* Плейсхолдер — замінити на фото */
+                      <div className="absolute inset-0 bg-graphite flex flex-col items-center justify-center gap-3">
+                        <div className="w-16 h-16 border border-gold/20 flex items-center justify-center">
+                          <span className="font-display text-3xl text-gold/20">{service.number}</span>
+                        </div>
+                        <span className="font-body text-xs text-mist/30 tracking-widest uppercase">Фото буде додано</span>
+                      </div>
+                    )}
+                    {/* Градієнт */}
+                    <div className={`absolute inset-0 bg-gradient-to-${isEven ? 'r' : 'l'} from-transparent to-obsidian/60`} />
+                  </div>
 
-                {/* Іконка */}
-                <div className="text-gold/60 group-hover:text-gold mb-6
-                                transition-colors duration-300 w-12 h-12 flex items-center justify-center
-                                border border-gold/20 group-hover:border-gold/40">
-                  {service.icon}
+                  {/* Контент */}
+                  <div className={`flex flex-col justify-center px-10 py-16 lg:py-20 bg-obsidian ${isEven ? 'lg:pl-16 lg:pr-10' : 'lg:pr-16 lg:pl-10 lg:col-start-1 lg:row-start-1'}`}>
+
+                    {/* Номер + роздільник */}
+                    <div className="flex items-center gap-4 mb-8">
+                      <span className="font-body text-[10px] tracking-[0.5em] uppercase text-gold/50">
+                        {service.number}
+                      </span>
+                      <div className="flex-1 h-px bg-gold/15" />
+                      <span className="text-gold/20 text-xs">◆</span>
+                    </div>
+
+                    {/* Назва */}
+                    <h2 className="font-display text-3xl md:text-4xl font-light text-cream mb-5 leading-snug">
+                      {service.title}
+                    </h2>
+
+                    {/* Опис */}
+                    <p className="font-body text-mist text-sm leading-relaxed mb-8">
+                      {service.description}
+                    </p>
+
+                    {/* Список */}
+                    <ul className="space-y-3 mb-10">
+                      {service.features.map((f, j) => (
+                        <li key={j} className="flex items-start gap-3">
+                          <span className="text-gold mt-1 shrink-0">◆</span>
+                          <span className="font-body text-sm text-mist/80">{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* CTA */}
+                    <div>
+                      <a href={`tel:${PHONE}`}
+                         className="inline-flex items-center gap-2 border border-gold/30 text-gold
+                                    font-body text-xs tracking-widest uppercase px-7 py-3
+                                    hover:bg-gold/5 hover:border-gold transition-all duration-300">
+                        <Phone size={12} />
+                        Зателефонувати
+                      </a>
+                    </div>
+                  </div>
+
                 </div>
+              </div>
+            </div>
+          )
+        })}
+      </section>
 
-                {/* Назва */}
-                <h3 className="font-display text-xl text-cream mb-3
-                               group-hover:text-gold transition-colors duration-300 leading-snug">
-                  {service.title}
-                </h3>
+      {/* ═══ ПАМ'ЯТНИКИ ═══ */}
+      <section className="py-24 bg-graphite border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
-                {/* Опис */}
-                <p className="font-body text-mist text-sm leading-relaxed mb-6 flex-1">
-                  {service.description}
+            {/* Ліво */}
+            <div>
+              <div className="flex items-center gap-4 mb-8">
+                <span className="font-body text-[10px] tracking-[0.5em] uppercase text-gold/50">06</span>
+                <div className="flex-1 h-px bg-gold/15" />
+                <span className="text-gold/20 text-xs">◆</span>
+              </div>
+
+              <h2 className="font-display text-4xl md:text-5xl font-light text-cream mb-6 leading-tight">
+                Виготовлення<br />
+                <span className="text-gold/70 italic">пам&apos;ятників</span>
+              </h2>
+              <div className="w-12 h-px bg-bordeaux/60 mb-6" />
+              <p className="font-body text-mist text-sm leading-relaxed mb-8">
+                Окрім ритуальних послуг, ми спеціалізуємося на виготовленні пам&apos;ятників та меморіальних
+                комплексів із натурального граніту. Власне виробництво — без посередників та переплат.
+                Індивідуальний підхід до кожного замовлення.
+              </p>
+
+              <p className="font-body text-xs tracking-[0.3em] uppercase text-gold/60 mb-5">Пропонуємо</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10">
+                {monumentTypes.map((type, i) => (
+                  <div key={i}
+                    className="flex items-center gap-3 bg-ash border border-white/5
+                               px-4 py-3 hover:border-gold/20 transition-colors duration-300">
+                    <span className="text-gold/50 shrink-0">◆</span>
+                    <span className="font-body text-sm text-mist">{type}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Кнопки */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link href="/catalog"
+                  className="flex items-center justify-center gap-2 bg-bordeaux hover:bg-burgundy text-cream
+                             font-body text-xs tracking-widest uppercase px-8 py-3.5
+                             transition-colors duration-300">
+                  Каталог
+                </Link>
+                <Link href="/exhibition"
+                  className="flex items-center justify-center gap-2 border border-gold/30 text-gold
+                             font-body text-xs tracking-widest uppercase px-8 py-3.5
+                             hover:bg-gold/5 hover:border-gold transition-all duration-300">
+                  Виставка пам&apos;ятників
+                </Link>
+              </div>
+            </div>
+
+            {/* Право — художнє оформлення */}
+            <div>
+              <div className="bg-obsidian border border-white/5 p-8 mb-6">
+                <p className="font-body text-xs tracking-[0.3em] uppercase text-gold mb-6">
+                  Художнє оформлення
                 </p>
-
-                {/* Фічі */}
-                <ul className="space-y-2 pt-4 border-t border-white/5">
-                  {service.features.map((f, j) => (
-                    <li key={j} className="flex items-center gap-2 font-body text-xs text-mist/70">
-                      <Check size={11} className="text-gold/60 shrink-0" />
-                      {f}
+                <p className="font-body text-mist text-sm leading-relaxed mb-6">
+                  Створюємо індивідуальний вигляд пам&apos;ятника завдяки професійному художньому оформленню.
+                  Кожен виріб — це унікальна робота, що зберігає пам&apos;ять.
+                </p>
+                <ul className="space-y-3">
+                  {artFeatures.map((f, i) => (
+                    <li key={i} className="flex items-center gap-3">
+                      <div className="w-5 h-5 border border-gold/30 flex items-center justify-center shrink-0">
+                        <Check size={11} className="text-gold" />
+                      </div>
+                      <span className="font-body text-sm text-mist">{f}</span>
                     </li>
                   ))}
                 </ul>
-
-                <div className="h-px bg-gradient-to-r from-transparent via-bordeaux/50 to-transparent
-                                scale-x-0 group-hover:scale-x-100 transition-transform duration-500 mt-6" />
               </div>
-            ))}
+
+              {/* Статистика */}
+              <div className="grid grid-cols-2 gap-px bg-white/5">
+                {[
+                  { value: '10+',    label: 'Років у виробництві' },
+                  { value: '1 000+', label: 'Виготовлених пам\'ятників' },
+                  { value: '100%',   label: 'Натуральний граніт' },
+                  { value: '5★',     label: 'Якість та гарантія' },
+                ].map(stat => (
+                  <div key={stat.label} className="bg-obsidian px-6 py-6">
+                    <p className="font-display text-3xl font-light text-gold mb-1">{stat.value}</p>
+                    <p className="font-body text-mist/60 text-xs tracking-wider uppercase">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* CTA секція */}
+      {/* ═══ CTA ═══ */}
       <section className="py-20 bg-bordeaux/10 border-y border-bordeaux/20">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <p className="font-body text-gold text-xs tracking-[0.4em] uppercase mb-4">Термінова допомога</p>
+          <p className="font-body text-gold text-xs tracking-[0.4em] uppercase mb-4">Потрібна допомога?</p>
           <h2 className="font-display text-4xl md:text-5xl font-light text-cream mb-6 leading-tight">
-            Потрібна допомога прямо зараз?
+            Ми готові допомогти<br />прямо зараз
           </h2>
           <p className="font-body text-mist text-base leading-relaxed max-w-xl mx-auto mb-10">
-            Наші спеціалісти доступні цілодобово. Ми відповімо негайно і організуємо все необхідне
-            у найкоротші терміни.
+            Розуміємо, наскільки важливо отримати підтримку та професійну консультацію у складний момент.
+            Зв&apos;яжіться з нами у будь-який час — наші спеціалісти готові допомогти цілодобово.
           </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <a href={`tel:${PHONE}`}
                className="flex items-center gap-3 bg-bordeaux hover:bg-burgundy text-cream
                           font-body text-sm tracking-widest uppercase px-10 py-4
                           transition-all duration-300 w-full sm:w-auto justify-center">
               <Phone size={16} />
-              {PHONE_DISPLAY}
+              Зателефонувати зараз
             </a>
             <a href="#contact-form"
                className="flex items-center gap-3 border border-gold/30 text-gold
                           font-body text-sm tracking-widest uppercase px-10 py-4
                           hover:bg-gold/5 hover:border-gold
                           transition-all duration-300 w-full sm:w-auto justify-center">
-              Написати нам
+              Залишити заявку
             </a>
           </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-8 mt-12">
+          <div className="flex flex-wrap items-center justify-center gap-10">
             {[
-              { value: '24/7', label: 'Цілодобово' },
-              { value: '10+', label: 'Років досвіду' },
-              { value: '1000+', label: 'Родин довірились нам' },
+              { value: '24/7',   label: 'Цілодобово' },
+              { value: '10+',    label: 'Років досвіду' },
+              { value: '1 000+', label: 'Родин довірились' },
             ].map(stat => (
               <div key={stat.label} className="text-center">
-                <p className="font-display text-3xl text-gold font-light">{stat.value}</p>
+                <p className="font-display text-4xl text-gold font-light">{stat.value}</p>
                 <p className="font-body text-mist/60 text-xs tracking-wider uppercase mt-1">{stat.label}</p>
               </div>
             ))}
@@ -210,19 +323,17 @@ export function RitualServicesPage() {
         </div>
       </section>
 
-      {/* Форма зв'язку */}
-      <section id="contact-form" className="py-20 bg-obsidian">
+      {/* ═══ ФОРМА ЗВ'ЯЗКУ ═══ */}
+      <section id="contact-form" className="py-20 bg-graphite border-t border-white/5">
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
-            {/* Ліво — контакти */}
             <div>
               <SectionTitle
                 eyebrow="Зв'яжіться з нами"
                 title="Ми завжди поруч"
                 centered={false}
               />
-
               <div className="space-y-6 mb-10">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 border border-gold/30 flex items-center justify-center shrink-0">
@@ -234,10 +345,9 @@ export function RitualServicesPage() {
                        className="font-body text-cream text-lg hover:text-gold transition-colors duration-300">
                       {PHONE_DISPLAY}
                     </a>
-                    <p className="font-body text-mist/50 text-xs mt-0.5">24/7 (цілодобово)</p>
+                    <p className="font-body text-mist/50 text-xs mt-0.5">24/7, цілодобово</p>
                   </div>
                 </div>
-
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 border border-gold/30 flex items-center justify-center shrink-0">
                     <MapPin size={16} className="text-gold" />
@@ -248,8 +358,7 @@ export function RitualServicesPage() {
                   </div>
                 </div>
               </div>
-
-              <div className="bg-graphite border border-white/5 p-6">
+              <div className="bg-ash border border-white/5 p-6">
                 <p className="font-body text-xs text-gold tracking-widest uppercase mb-3">Важливо знати</p>
                 <p className="font-body text-mist text-sm leading-relaxed">
                   Після звернення наш спеціаліст зв&apos;яжеться з вами протягом декількох хвилин.
@@ -258,20 +367,18 @@ export function RitualServicesPage() {
               </div>
             </div>
 
-            {/* Право — форма */}
-            <div className="bg-graphite border border-white/5 p-8">
+            <div className="bg-ash border border-white/5 p-8">
               {isSubmitted ? (
                 <div className="text-center py-12">
                   <p className="text-gold text-4xl mb-4">◆</p>
                   <p className="font-display text-2xl text-cream mb-3">Дякуємо за звернення</p>
-                  <p className="font-body text-mist text-sm leading-relaxed">
+                  <p className="font-body text-mist text-sm">
                     Наш спеціаліст зв&apos;яжеться з вами найближчим часом.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <p className="font-display text-xl text-cream mb-6">Залишити заявку</p>
-
                   <div>
                     <label className="font-body text-xs tracking-wider text-mist/60 uppercase mb-2 block">
                       Ваше ім&apos;я *
@@ -279,7 +386,6 @@ export function RitualServicesPage() {
                     <input type="text" name="name" required placeholder="Іван Іваненко"
                       value={formData.name} onChange={handleChange} className={inputClass} />
                   </div>
-
                   <div>
                     <label className="font-body text-xs tracking-wider text-mist/60 uppercase mb-2 block">
                       Телефон *
@@ -287,7 +393,6 @@ export function RitualServicesPage() {
                     <input type="tel" name="phone" required placeholder="+380 (___) ___-__-__"
                       value={formData.phone} onChange={handleChange} className={inputClass} />
                   </div>
-
                   <div>
                     <label className="font-body text-xs tracking-wider text-mist/60 uppercase mb-2 block">
                       Повідомлення
@@ -297,13 +402,11 @@ export function RitualServicesPage() {
                       value={formData.message} onChange={handleChange}
                       className={inputClass + ' resize-none'} />
                   </div>
-
                   <Button type="submit" variant="primary"
                     className="w-full justify-center py-4"
                     disabled={isSubmitting}>
                     {isSubmitting ? 'Надсилаємо...' : 'Надіслати заявку'}
                   </Button>
-
                   <p className="font-body text-mist/40 text-xs text-center">
                     Натискаючи кнопку, ви погоджуєтеся на обробку персональних даних
                   </p>
