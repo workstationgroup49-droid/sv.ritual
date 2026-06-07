@@ -42,7 +42,10 @@ const messengers = [
 const navLinks = [
   { href: '/',           label: 'Головна' },
   { href: '/catalog',    label: 'Каталог' },
+<<<<<<< HEAD
   { href: '/ritualni-poslugy', label: 'Ритуальні послуги' },
+=======
+>>>>>>> f8ceaecb29affe076f6ffc7656c19ba9c276c44a
   { href: '/granite',    label: 'Зразки граніту' },
   { href: '/exhibition', label: 'Виставка' },
   { href: '/#about',     label: 'Про нас' },
@@ -82,7 +85,11 @@ export function Footer() {
               <Image src="/images/logo.png" alt="Ритуал" width={56} height={56} className="object-contain rounded-sm" />
               <p className="font-display text-3xl font-light text-cream tracking-widest">Ритуал</p>
             </div>
+<<<<<<< HEAD
             <p className="font-body text-[10px] tracking-[0.4em] text-gold uppercase mb-4">Ритуальна служба</p>
+=======
+            <p className="font-body text-[10px] tracking-[0.4em] text-gold uppercase mb-4">Гранітна майстерня</p>
+>>>>>>> f8ceaecb29affe076f6ffc7656c19ba9c276c44a
             <p className="font-body text-mist text-sm leading-relaxed mb-6">
               Власне виробництво пам&apos;ятників з натурального граніту. Широкий вибір, доступні ціни, доставка по області.
             </p>

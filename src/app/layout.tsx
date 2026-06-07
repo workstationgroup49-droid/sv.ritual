@@ -17,7 +17,11 @@ const lato = Lato({
 })
 
 export const metadata: Metadata = {
+<<<<<<< HEAD
   title: 'Ритуал — Ритуальна служба',
+=======
+  title: 'Ритуал — Гранітна майстерня',
+>>>>>>> f8ceaecb29affe076f6ffc7656c19ba9c276c44a
   description: 'Виготовлення пам\'ятників та виробів з граніту. Власне виробництво, широкий вибір, доступні ціни.',
   icons: {
     icon: '/images/logo.png',

@@ -13,7 +13,11 @@ export function HeroSection() {
 
       <Image
         src="/images/hero-bg.jpg"
+<<<<<<< HEAD
         alt="Ритуальна служба Ритуал"
+=======
+        alt="Гранітна майстерня"
+>>>>>>> f8ceaecb29affe076f6ffc7656c19ba9c276c44a
         fill
         priority
         sizes="100vw"
@@ -26,6 +30,7 @@ export function HeroSection() {
 
         {/* Eyebrow */}
         <p className="deco-line font-body text-gold text-[11px] tracking-[0.5em] uppercase mb-8 animate-fade-in animate-hidden">
+<<<<<<< HEAD
           Світловодськ · 24/7
         </p>
 
@@ -39,6 +44,18 @@ export function HeroSection() {
         <p className="font-body text-mist text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-4 animate-slide-up-d animate-hidden">
           Повний супровід у важку хвилину — від організації похорону до встановлення меморіального пам&apos;ятника.
           Працюємо з повагою, гідністю та турботою.
+=======
+          Гранітна майстерня
+        </p>
+
+        <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-light text-cream leading-[1.05] mb-6 animate-slide-up animate-hidden">
+          Пам&apos;ятники з граніту<br/>
+          <span className="text-gold/80 italic">власного виробництва</span>
+        </h1>
+
+        <p className="font-body text-mist text-base md:text-lg leading-relaxed max-w-xl mx-auto mb-12 animate-slide-up-d animate-hidden">
+          Виготовляємо гранітні пам&apos;ятники, надгробки та меморіальні вироби. Широкий вибір моделей, індивідуальне різьблення, доступні ціни.
+>>>>>>> f8ceaecb29affe076f6ffc7656c19ba9c276c44a
         </p>
 
         {/* Три переваги */}

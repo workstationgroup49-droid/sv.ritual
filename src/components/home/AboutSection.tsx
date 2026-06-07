@@ -51,7 +51,11 @@ export function AboutSection() {
           <div className="reveal reveal-delay-2">
             <SectionTitle
               eyebrow="Про нас"
+<<<<<<< HEAD
               title="Ритуальна служба з власним виробництвом"
+=======
+              title="Гранітна майстерня з власним виробництвом"
+>>>>>>> f8ceaecb29affe076f6ffc7656c19ba9c276c44a
               centered={false}
             />
 
