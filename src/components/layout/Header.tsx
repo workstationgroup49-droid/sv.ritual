@@ -14,11 +14,7 @@ const PHONE_DISPLAY = '+380 (97) 018-71-87'
 
 const navLinks = [
   { href: '/',           label: 'Головна' },
-<<<<<<< HEAD
   { href: '/ritualni-poslugy', label: 'Послуги' },
-=======
-  { href: '/catalog',    label: 'Каталог' },
->>>>>>> f8ceaecb29affe076f6ffc7656c19ba9c276c44a
   { href: '/granite',    label: 'Зразки граніту' },
   { href: '/exhibition', label: 'Виставка' },
   { href: '/#about',     label: 'Про нас' },
@@ -90,30 +86,17 @@ export function Header() {
             <Image
               src="/images/logo.png"
               alt="Ритуал"
-<<<<<<< HEAD
               width={58}
               height={58}
-=======
-              width={42}
-              height={42}
->>>>>>> f8ceaecb29affe076f6ffc7656c19ba9c276c44a
               className="object-contain rounded-sm"
               priority
             />
             <div className="flex flex-col leading-none">
-<<<<<<< HEAD
               <span className="font-display text-2xl md:text-3xl font-light text-cream tracking-widest group-hover:text-gold transition-colors duration-300">
                 Ритуал
               </span>
               <span className="font-body text-[9px] md:text-[10px] tracking-[0.4em] text-gold/70 uppercase">
                 Ритуальна служба
-=======
-              <span className="font-display text-xl md:text-2xl font-light text-cream tracking-widest group-hover:text-gold transition-colors duration-300">
-                Ритуал
-              </span>
-              <span className="font-body text-[8px] md:text-[9px] tracking-[0.4em] text-mist uppercase">
-                Гранітна майстерня
->>>>>>> f8ceaecb29affe076f6ffc7656c19ba9c276c44a
               </span>
             </div>
           </Link>
