@@ -2,123 +2,77 @@
 
 import Image from 'next/image'
 import { Product } from '@/types/product'
-import { useCartStore } from '@/store/cartStore'
-import { useCategories } from '@/hooks/useCategories'
-import { formatPrice } from '@/lib/utils'
-import { ShoppingCart, Package, Check } from 'lucide-react'
-import { useState } from 'react'
+import { Package } from 'lucide-react'
 
 interface ProductCardProps {
-  product:  Product
-  onOpen:   (product: Product) => void
+  product: Product
+  onOpen:  (product: Product) => void
 }
 
 export function ProductCard({ product, onOpen }: ProductCardProps) {
-  const addItem = useCartStore(s => s.addItem)
-  const items   = useCartStore(s => s.items)
-  const { categories } = useCategories()
-  const [added, setAdded] = useState(false)
-
-  const inCart = items.some(i => i.id === product.id)
-  void inCart
-
-  const categoryLabel = categories.find(c => c.slug === product.category)?.label ?? product.category
-
-  const handleAdd = (e: React.MouseEvent) => {
-    e.stopPropagation()
-    addItem(product)
-    setAdded(true)
-    setTimeout(() => setAdded(false), 2000)
-  }
-
   return (
-    <div className="group bg-graphite border border-white/5 overflow-hidden
-                    hover:border-gold/20 transition-all duration-500 flex flex-col">
-
-      {/* Фото — клікабельне */}
-      <div
-        className="relative bg-obsidian overflow-hidden shrink-0 cursor-zoom-in"
-        style={{ paddingBottom: '75%' }}
-        onClick={() => onOpen(product)}
-      >
+    <div
+      className="group relative overflow-hidden cursor-pointer
+                 bg-[#1e1e21] border border-white/[0.07]
+                 hover:border-gold/25
+                 shadow-[0_2px_12px_rgba(0,0,0,0.4)]
+                 hover:shadow-[0_4px_24px_rgba(201,169,110,0.12)]
+                 transition-all duration-400"
+      onClick={() => onOpen(product)}
+    >
+      {/* Фото */}
+      <div className="relative bg-[#141416]" style={{ paddingBottom: '100%' }}>
         {product.image_url ? (
           <Image
             src={product.image_url}
             alt={product.name}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-contain p-3 opacity-90 group-hover:opacity-100
-                       group-hover:scale-105 transition-all duration-700"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            className="object-contain p-3 opacity-85
+                       group-hover:opacity-100 group-hover:scale-[1.04]
+                       transition-all duration-500"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
-            <Package size={40} className="text-mist/20" />
+            <Package size={32} className="text-white/10" />
           </div>
         )}
 
         {!product.in_stock && (
-          <div className="absolute top-3 left-3 bg-obsidian/80 backdrop-blur-sm
-                          px-2 py-1 font-body text-xs text-mist z-10">
+          <div className="absolute top-2.5 left-2.5 z-10
+                          bg-obsidian/85 backdrop-blur-sm
+                          px-2 py-0.5 font-body text-[10px] text-mist/70 tracking-wider">
             Немає в наявності
           </div>
         )}
 
-        {/* Підказка при ховері */}
-        <div className="absolute inset-0 flex items-center justify-center
-                        opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span className="bg-obsidian/70 text-gold font-body text-xs tracking-widest
-                           uppercase px-4 py-2 border border-gold/30">
-            Переглянути
+        {/* Оверлей при ховері */}
+        <div className="absolute inset-0 bg-obsidian/50
+                        opacity-0 group-hover:opacity-100
+                        transition-opacity duration-300
+                        flex items-center justify-center">
+          <span className="font-body text-[11px] tracking-[0.25em] uppercase text-cream/90
+                           border border-white/25 px-4 py-2
+                           bg-obsidian/40 backdrop-blur-sm">
+            Детальніше
           </span>
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 h-12
-                        bg-gradient-to-t from-graphite/60 to-transparent" />
+        {/* Золота лінія знизу при ховері */}
+        <div className="absolute bottom-0 left-0 right-0 h-[2px]
+                        bg-gradient-to-r from-transparent via-gold/50 to-transparent
+                        scale-x-0 group-hover:scale-x-100
+                        transition-transform duration-500" />
       </div>
 
-      {/* Контент */}
-      <div className="p-5 flex flex-col flex-1">
-        <p className="font-body text-xs text-gold/60 tracking-wider uppercase mb-1">
-          {categoryLabel}
-        </p>
-        <h3
-          className="font-display text-lg text-cream mb-2 leading-snug
-                     group-hover:text-gold transition-colors duration-300 cursor-pointer"
-          onClick={() => onOpen(product)}
-        >
+      {/* Назва */}
+      <div className="px-4 py-3 border-t border-white/[0.05]">
+        <h3 className="font-display text-[15px] md:text-base text-cream/90 leading-snug
+                       group-hover:text-gold transition-colors duration-300
+                       line-clamp-2">
           {product.name}
         </h3>
-        {product.description && (
-          <p className="font-body text-mist text-xs leading-relaxed line-clamp-2 flex-1">
-            {product.description}
-          </p>
-        )}
-
-        <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/5">
-          <span className="font-display text-xl text-gold">
-            {formatPrice(product.price)}
-          </span>
-
-          <button
-            onClick={handleAdd}
-            disabled={!product.in_stock}
-            className="flex items-center gap-2 px-4 py-2 font-body text-xs
-                       tracking-widest uppercase transition-all duration-300
-                       disabled:opacity-40 disabled:cursor-not-allowed
-                       bg-bordeaux/20 border border-bordeaux/40 text-cream
-                       hover:bg-bordeaux hover:border-bordeaux"
-          >
-            {added ? (
-              <><Check size={13} /> Додано</>
-            ) : (
-              <><ShoppingCart size={13} /> У кошик</>
-            )}
-          </button>
-        </div>
       </div>
-
-      <div className="h-px bg-gradient-to-r from-transparent via-bordeaux/50 to-transparent
-                      scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
     </div>
   )
 }

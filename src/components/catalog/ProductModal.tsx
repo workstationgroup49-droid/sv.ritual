@@ -150,7 +150,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
             </div>
 
             <p className="font-display text-3xl text-gold mb-8">
-              {formatPrice(product.price)}
+              <span className="font-body text-sm text-mist/60 mr-1">від</span>{formatPrice(product.price)}
             </p>
 
             <div className="mt-auto flex flex-col gap-3">

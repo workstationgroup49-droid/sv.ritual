@@ -62,7 +62,7 @@ export default function AdminDashboardPage() {
       {/* Шапка */}
       <header className="bg-graphite border-b border-white/5 px-6 h-16 flex items-center justify-between">
         <div>
-          <span className="font-display text-xl text-cream tracking-widest">СВ-РІТУАЛ</span>
+          <span className="font-display text-xl text-cream tracking-widest">РИТУАЛ</span>
           <span className="font-body text-xs text-mist ml-3 tracking-wider">/ Панель керування</span>
         </div>
         <button

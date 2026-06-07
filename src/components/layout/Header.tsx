@@ -13,16 +13,18 @@ const PHONE = '+380970187187'
 const PHONE_DISPLAY = '+380 (97) 018-71-87'
 
 const navLinks = [
-  { href: '/',         label: 'Головна' },
-  { href: '/#about',   label: 'Про нас' },
-  { href: '/#contact', label: 'Контакти' },
-  { href: '/#contact', label: 'Зразки граніту' },
+  { href: '/',           label: 'Головна' },
+  { href: '/ritualni-poslugy', label: 'Послуги' },
+  { href: '/granite',    label: 'Зразки граніту' },
+  { href: '/exhibition', label: 'Виставка' },
+  { href: '/#about',     label: 'Про нас' },
+  { href: '/#contact',   label: 'Контакти' },
 ]
 
 const messengers = [
   {
     name: 'Telegram',
-    href: `https://t.me/${PHONE.replace('+', '')}`,
+    href: `https://t.me/+${PHONE.replace('+', '')}`,
     color: 'hover:text-[#2AABEE]',
     icon: (
       <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
@@ -77,24 +79,24 @@ export function Header() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 bg-obsidian/95 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
 
           {/* Логотип */}
           <Link href="/" className="flex items-center gap-3 group shrink-0">
             <Image
               src="/images/logo.png"
-              alt="СВ-РІТУАЛ"
-              width={42}
-              height={42}
+              alt="Ритуал"
+              width={58}
+              height={58}
               className="object-contain rounded-sm"
               priority
             />
             <div className="flex flex-col leading-none">
-              <span className="font-display text-xl md:text-2xl font-light text-cream tracking-widest group-hover:text-gold transition-colors duration-300">
-                СВ-РІТУАЛ
+              <span className="font-display text-2xl md:text-3xl font-light text-cream tracking-widest group-hover:text-gold transition-colors duration-300">
+                Ритуал
               </span>
-              <span className="font-body text-[8px] md:text-[9px] tracking-[0.4em] text-mist uppercase">
-                Ритуальне агентство
+              <span className="font-body text-[9px] md:text-[10px] tracking-[0.4em] text-gold/70 uppercase">
+                Ритуальна служба
               </span>
             </div>
           </Link>
@@ -204,7 +206,7 @@ export function Header() {
         />
 
         <div className={cn(
-          'absolute top-16 right-0 bottom-0 w-72 bg-graphite border-l border-white/5 flex flex-col transition-transform duration-300 overflow-y-auto',
+          'absolute top-20 right-0 bottom-0 w-72 bg-graphite border-l border-white/5 flex flex-col transition-transform duration-300 overflow-y-auto',
           mobileOpen ? 'translate-x-0' : 'translate-x-full'
         )}>
           {/* Телефон + мессенджеры */}
@@ -264,7 +266,7 @@ export function Header() {
           </nav>
 
           <div className="p-5 border-t border-white/5">
-            <p className="font-display text-lg text-cream/20 tracking-widest text-center">СВ-РІТУАЛ</p>
+            <p className="font-display text-lg text-cream/20 tracking-widest text-center">Ритуал</p>
           </div>
         </div>
       </div>

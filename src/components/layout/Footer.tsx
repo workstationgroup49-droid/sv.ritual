@@ -3,13 +3,13 @@ import Image from 'next/image'
 import { Phone, MapPin } from 'lucide-react'
 import { Divider } from '@/components/ui/Divider'
 
-const PHONE = '+380970187187'
+const PHONE         = '+380970187187'
 const PHONE_DISPLAY = '+380 (97) 018-71-87'
 
 const messengers = [
   {
     name: 'Telegram',
-    href: `https://t.me/${PHONE.replace('+', '')}`,
+    href: `https://t.me/+${PHONE.replace('+', '')}`,
     color: 'hover:text-[#2AABEE]',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -23,7 +23,7 @@ const messengers = [
     color: 'hover:text-[#7360F2]',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M11.4 0C6.39 0 3.15 2.37 3.15 2.37S0 5.37 0 10.5c0 3.82.87 6.5 2.53 8.13l.03.03v3.86s-.01.7.42.84c.52.17.82-.32 1.33-.87l1.38-1.54c.76.67 1.6 1.18 2.51 1.5C9.27 23.42 10.33 24 11.4 24c4.95 0 10.6-3.68 10.6-3.68S24 17.14 24 10.5c0-3.82-.87-6.5-2.53-8.13C19.81 0 11.4 0 11.4 0zm.06 1.78c3.68 0 8.37.77 10.04 3.5 1.17 1.9 1.72 4.14 1.72 5.22 0 5.12-2.24 7.62-2.24 7.62S16.5 21.33 11.4 21.33c-.82 0-1.68-.17-2.5-.5-1.26-.5-2.36-1.37-3.17-2.47l-1.13 1.26c-.08.09-.14.1-.14.02v-2.81c-1.23-1.25-1.93-3.34-1.93-6.33 0-5.11 2.25-7.62 2.25-7.62S7.72 1.78 11.46 1.78zM8.26 6.2c-.19.01-.35.07-.48.18-.3.25-1.85 1.53-1.85 4.57s1.85 4.32 1.85 4.32l.01.01c.12.1.28.16.45.16.43 0 .78-.35.78-.78 0-.2-.08-.4-.21-.54-.08-.09-1.38-1.04-1.38-3.17 0-2.14 1.29-3.09 1.38-3.17.13-.14.21-.33.21-.54 0-.43-.35-.06-.76-.04zm7.06.48c-.22 0-.41.09-.55.24l-.01.01c-.32.36-.44.88-.12 1.19.47.47 1.28 1.4 1.28 2.88s-.81 2.41-1.28 2.88c-.32.31-.2.83.12 1.19.14.15.34.24.55.24.43 0 .78-.35.78-.78 0-.19-.07-.37-.18-.51.47-.61 1.57-1.88 1.57-3.02 0-1.14-1.1-2.41-1.57-3.02.11-.14.18-.32.18-.51 0-.43-.35-.79-.77-.79zm-3.56.41c-.43 0-.78.35-.78.78 0 .22.09.42.24.56.5.47.77 1.11.77 1.84s-.27 1.37-.77 1.84c-.15.14-.24.34-.24.56 0 .43.35.78.78.78.21 0 .4-.08.54-.22.75-.71 1.17-1.69 1.17-2.96s-.42-2.25-1.17-2.96c-.14-.14-.33-.22-.54-.22z"/>
+        <path d="M11.4 0C6.39 0 3.15 2.37 3.15 2.37S0 5.37 0 10.5c0 3.82.87 6.5 2.53 8.13l.03.03v3.86s-.01.7.42.84c.52.17.82-.32 1.33-.87l1.38-1.54c.76.67 1.6 1.18 2.51 1.5C9.27 23.42 10.33 24 11.4 24c4.95 0 10.6-3.68 10.6-3.68S24 17.14 24 10.5c0-3.82-.87-6.5-2.53-8.13C19.81 0 11.4 0 11.4 0zm.06 1.78c3.68 0 8.37.77 10.04 3.5 1.17 1.9 1.72 4.14 1.72 5.22 0 5.12-2.24 7.62-2.24 7.62S16.5 21.33 11.4 21.33c-.82 0-1.68-.17-2.5-.5-1.26-.5-2.36-1.37-3.17-2.47l-1.13 1.26c-.08.09-.14.1-.14.02v-2.81c-1.23-1.25-1.93-3.34-1.93-6.33 0-5.11 2.25-7.62 2.25-7.62S7.72 1.78 11.46 1.78z"/>
       </svg>
     ),
   },
@@ -39,90 +39,117 @@ const messengers = [
   },
 ]
 
+const navLinks = [
+  { href: '/',           label: 'Головна' },
+  { href: '/catalog',    label: 'Каталог' },
+  { href: '/ritualni-poslugy', label: 'Ритуальні послуги' },
+  { href: '/granite',    label: 'Зразки граніту' },
+  { href: '/exhibition', label: 'Виставка' },
+  { href: '/#about',     label: 'Про нас' },
+  { href: '/#contact',   label: 'Контакти' },
+]
+
+const catalogLinks = [
+  { href: '/catalog?category=forone',     label: "Пам'ятники на одного" },
+  { href: '/catalog?category=military',   label: 'Для військових' },
+  { href: '/catalog?category=crosses',    label: 'З хрестами' },
+  { href: '/catalog?category=horizontal', label: 'Горизонтальні' },
+  { href: '/catalog?category=children',   label: 'Дитячі' },
+  { href: '/catalog?category=rizbl',      label: 'Різьблені' },
+  { href: '/catalog?category=mixed',      label: 'Комбіновані' },
+]
+
 export function Footer() {
   return (
-    <footer className="bg-graphite border-t border-white/5 pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+    <footer className="bg-graphite border-t border-white/5 pt-16 pb-8 relative overflow-hidden">
 
-          <div>
+      {/* Ангел зліва */}
+      <div className="absolute bottom-0 left-0 w-48 md:w-64 lg:w-72 pointer-events-none select-none opacity-20 md:opacity-30">
+        <Image src="/images/angel-left.svg" alt="" width={335} height={513} className="w-full h-auto" />
+      </div>
+
+      {/* Ангел справа */}
+      <div className="absolute bottom-0 right-0 w-32 md:w-44 lg:w-52 pointer-events-none select-none opacity-20 md:opacity-30 translate-y-16">
+        <Image src="/images/angel-right.svg" alt="" width={208} height={513} className="w-full h-auto" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+
+          {/* Лого + опис */}
+          <div className="md:col-span-1">
             <div className="flex items-center gap-3 mb-2">
-              <Image
-                src="/images/logo.png"
-                alt="СВ-РІТУАЛ"
-                width={56}
-                height={56}
-                className="object-contain rounded-sm"
-              />
-              <p className="font-display text-3xl font-light text-cream tracking-widest">СВ-РІТУАЛ</p>
+              <Image src="/images/logo.png" alt="Ритуал" width={56} height={56} className="object-contain rounded-sm" />
+              <p className="font-display text-3xl font-light text-cream tracking-widest">Ритуал</p>
             </div>
-            <p className="font-body text-[10px] tracking-[0.4em] text-gold uppercase mb-4">Ритуальне агентство</p>
+            <p className="font-body text-[10px] tracking-[0.4em] text-gold uppercase mb-4">Ритуальна служба</p>
             <p className="font-body text-mist text-sm leading-relaxed mb-6">
-              Професійний супровід у найважчий момент життя. Працюємо з повагою, гідністю та турботою.
+              Власне виробництво пам&apos;ятників з натурального граніту. Широкий вибір, доступні ціни, доставка по області.
             </p>
-            {/* Мессенджеры */}
             <div className="flex items-center gap-4">
               {messengers.map(m => (
-                <a
-                  key={m.name}
-                  href={m.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={m.name}
-                  className={`text-mist transition-colors duration-300 ${m.color}`}
-                >
+                <a key={m.name} href={m.href} target="_blank" rel="noopener noreferrer"
+                   title={m.name} className={`text-mist transition-colors duration-300 ${m.color}`}>
                   {m.icon}
                 </a>
               ))}
             </div>
           </div>
 
+          {/* Навігація сайтом */}
           <div>
-            <p className="font-body text-xs tracking-[0.3em] uppercase text-gold mb-6">Послуги</p>
+            <p className="font-body text-xs tracking-[0.3em] uppercase text-gold mb-6">Навігація</p>
             <ul className="space-y-3">
-              {['Організація похорону', 'Кремація', 'Транспортування', 'Надгробки', 'Вінки та квіти'].map(s => (
-                <li key={s}>
-                  <Link href="/catalog" className="font-body text-sm text-mist hover:text-cream transition-colors duration-300">
-                    {s}
+              {navLinks.map(link => (
+                <li key={link.href}>
+                  <Link href={link.href}
+                        className="font-body text-sm text-mist hover:text-cream transition-colors duration-300">
+                    {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
+          {/* Каталог категорій */}
+          <div>
+            <p className="font-body text-xs tracking-[0.3em] uppercase text-gold mb-6">Пам&apos;ятники</p>
+            <ul className="space-y-3">
+              {catalogLinks.map(link => (
+                <li key={link.href}>
+                  <Link href={link.href}
+                        className="font-body text-sm text-mist hover:text-cream transition-colors duration-300">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Контакти */}
           <div>
             <p className="font-body text-xs tracking-[0.3em] uppercase text-gold mb-6">Контакти</p>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <Phone size={14} className="mt-0.5 shrink-0 text-gold" />
                 <div>
-                  <a
-                    href={`tel:${PHONE}`}
-                    className="font-body text-sm text-mist hover:text-gold transition-colors duration-300 block"
-                  >
+                  <a href={`tel:${PHONE}`}
+                     className="font-body text-sm text-mist hover:text-gold transition-colors duration-300 block">
                     {PHONE_DISPLAY}
                   </a>
-                  <span className="font-body text-xs text-mist/60">08:00–17:00</span>
+                  <span className="font-body text-xs text-mist/60">24/7 (цілодобово)</span>
                 </div>
               </li>
-
               <li className="flex items-start gap-3 text-mist">
                 <MapPin size={14} className="mt-0.5 shrink-0 text-gold" />
                 <span className="font-body text-sm">м. Світловодськ, вул. Миру, 48(б)</span>
               </li>
-
-              {/* Мессенджеры в контактах */}
               <li className="pt-2">
                 <p className="font-body text-xs tracking-wider text-mist uppercase mb-3">Написати нам:</p>
                 <div className="flex flex-col gap-2">
                   {messengers.map(m => (
-                    <a
-                      key={m.name}
-                      href={m.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`flex items-center gap-2 font-body text-sm text-mist transition-colors duration-300 ${m.color}`}
-                    >
+                    <a key={m.name} href={m.href} target="_blank" rel="noopener noreferrer"
+                       className={`flex items-center gap-2 font-body text-sm text-mist transition-colors duration-300 ${m.color}`}>
                       {m.icon}
                       {m.name}
                     </a>
@@ -137,7 +164,7 @@ export function Footer() {
         <Divider />
 
         <p className="font-body text-center text-mist/40 text-xs tracking-wider">
-          © {new Date().getFullYear()} СВ-РІТУАЛ. Всі права захищені.
+          © {new Date().getFullYear()} Ритуал. Всі права захищені.
         </p>
       </div>
     </footer>

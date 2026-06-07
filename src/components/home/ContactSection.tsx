@@ -18,7 +18,7 @@ const inputClass = `
 const messengers = [
   {
     name: 'Telegram',
-    href: `https://t.me/${PHONE.replace('+', '')}`,
+    href: `https://t.me/+${PHONE.replace('+', '')}`,
     label: 'Написати в Telegram',
     hoverBg: 'hover:bg-[#2AABEE]/10 hover:border-[#2AABEE]/40 hover:text-[#2AABEE]',
     icon: (
@@ -60,8 +60,8 @@ export function ContactSection() {
 
         <SectionTitle
           eyebrow="Зв'язатися з нами"
-          title="Ми готові допомогти"
-          subtitle="Звертайтеся до нас у будь-який час. Спеціалісти агентства доступні цілодобово."
+          title="Зв'яжіться з нами"
+          subtitle="Маєте питання або хочете замовити пам'ятник? Зателефонуйте або напишіть — відповімо швидко."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -80,7 +80,7 @@ export function ContactSection() {
                         {PHONE_DISPLAY}
                       </a>
                     ),
-                    sub: '08:00–17:00, без вихідних',
+                    sub: '24/7 (цілодобово)',
                   },
                   {
                     icon: MapPin,
@@ -91,7 +91,7 @@ export function ContactSection() {
                   {
                     icon: Clock,
                     label: 'Режим роботи',
-                    content: <p className="font-body text-cream text-sm">08:00–17:00</p>,
+                    content: <p className="font-body text-cream text-sm">24/7 (цілодобово)</p>,
                     sub: '',
                   },
                 ].map(item => (
