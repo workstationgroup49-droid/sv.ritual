@@ -29,8 +29,8 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
     return (
       <div className="text-center py-20">
         <Package size={40} className="text-mist/20 mx-auto mb-4" />
-        <p className="font-display text-2xl text-mist/40 mb-2">Товари не знайдено</p>
-        <p className="font-body text-mist/30 text-sm">Спробуйте змінити параметри пошуку</p>
+        <p className="font-display text-2xl text-cream mb-2">Товари не знайдено</p>
+        <p className="font-body text-cream text-sm">Спробуйте змінити параметри пошуку</p>
       </div>
     )
   }
