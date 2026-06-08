@@ -1,235 +1,190 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { X, ShoppingCart, Check } from 'lucide-react'
-import { getProducts } from '@/services/supabase/products'
-import { useCartStore } from '@/store/cartStore'
-import { useCategories } from '@/hooks/useCategories'
-import { formatPrice } from '@/lib/utils'
-import { Product } from '@/types/product'
-import { ProductModal } from '@/components/catalog/ProductModal'
+import { X, ChevronLeft, ChevronRight, ZoomIn, LayoutGrid, MessageCircle } from 'lucide-react'
+import { useContactForm } from '@/hooks/useContactForm'
 
-const VIDEO_ID = 'z5YCjLTXUro'
+type Props = { photos: string[] }
 
-export function ExhibitionPage() {
-  const [products,  setProducts]  = useState<Product[]>([])
-  const [selected,  setSelected]  = useState<Product | null>(null)
-  const [zoomed,    setZoomed]    = useState<string | null>(null)
-  const [zoomIndex, setZoomIndex] = useState(0)
-  const { categories } = useCategories()
+const inputClass = 'w-full bg-obsidian border border-white/10 text-cream placeholder-mist/50 font-body text-sm px-4 py-3 outline-none focus:border-gold/40 transition-all duration-300'
+
+export function ExhibitionGallery({ photos }: Props) {
+  const [active, setActive] = useState<number | null>(null)
+  const [contactOpen, setContactOpen] = useState(false)
+  const { formData, isSubmitting, isSubmitted, handleChange, handleSubmit } = useContactForm()
+
+  const prev = useCallback(() =>
+    setActive(i => (i != null && i > 0 ? i - 1 : i)), [])
+  const next = useCallback(() =>
+    setActive(i => (i != null && i < photos.length - 1 ? i + 1 : i)), [])
 
   useEffect(() => {
-    getProducts().then(all => {
-      // Беремо перші 20 товарів що мають фото
-      const withPhoto = all.filter(p => p.image_url).slice(0, 20)
-      setProducts(withPhoto)
-    })
-  }, [])
-
-  const getCategoryLabel = (slug: string) =>
-    categories.find(c => c.slug === slug)?.label ?? slug
-
-  const openZoom = (url: string, index: number) => {
-    setZoomed(url)
-    setZoomIndex(index)
-  }
-
-  const photoUrls = products.map(p => p.image_url!)
-
-  const prev = () => {
-    const i = (zoomIndex - 1 + photoUrls.length) % photoUrls.length
-    setZoomIndex(i); setZoomed(photoUrls[i])
-  }
-  const next = () => {
-    const i = (zoomIndex + 1) % photoUrls.length
-    setZoomIndex(i); setZoomed(photoUrls[i])
-  }
+    if (active == null) return
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') prev()
+      if (e.key === 'ArrowRight') next()
+      if (e.key === 'Escape') setActive(null)
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [active, prev, next])
 
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-16 bg-obsidian overflow-hidden">
-        <div className="absolute inset-0 opacity-5"
-             style={{ backgroundImage: 'repeating-linear-gradient(45deg, #c9a84c 0, #c9a84c 1px, transparent 0, transparent 50%)', backgroundSize: '20px 20px' }} />
-        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
-          <p className="font-body text-gold text-[11px] tracking-[0.5em] uppercase mb-6">
-            Живий погляд
-          </p>
-          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-light text-cream mb-6 leading-tight">
-            Наша виставка
-          </h1>
+      <section className="relative pt-32 pb-16 bg-obsidian">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <p className="font-body text-gold text-[11px] tracking-[0.5em] uppercase mb-6">Наші роботи</p>
+          <h1 className="font-display text-5xl md:text-6xl font-light text-cream mb-6">Виставка</h1>
           <div className="w-16 h-px bg-gold/40 mx-auto mb-8" />
-          <p className="font-body text-mist text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
-            Запрошуємо на відеоогляд нашої виставкової зали. Тут можна побачити пам&apos;ятники
-            наживо, відчути якість матеріалу та обрати готову модель або замовити індивідуальний проект.
+          <p className="font-body text-mist text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-10">
+            Фотогалерея наших робіт з натурального граніту.
           </p>
-        </div>
-      </section>
-
-      {/* Відео — автостарт з mute */}
-      <section className="bg-obsidian pb-16">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-10">
-            <p className="font-body text-xs tracking-[0.3em] uppercase text-gold mb-3">Відеоогляд</p>
-            <h2 className="font-display text-3xl md:text-4xl text-cream font-light">
-              Прогулянка по виставці
-            </h2>
-          </div>
-
-          <div className="relative w-full border border-white/10" style={{ paddingBottom: '56.25%' }}>
-            <iframe
-              src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&mute=1&rel=0&modestbranding=1`}
-              title="Огляд виставки"
-              className="absolute inset-0 w-full h-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Фото виставки — товари з каталогу */}
-      <section className="py-16 bg-graphite">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <p className="font-body text-xs tracking-[0.3em] uppercase text-gold mb-3">Фотогалерея</p>
-            <h2 className="font-display text-3xl md:text-4xl text-cream font-light mb-4">
-              Пам&apos;ятники на виставці
-            </h2>
-            <p className="font-body text-mist text-sm max-w-xl mx-auto">
-              Реальні вироби з нашої виставкової зали. Натисніть на фото щоб переглянути деталі або додати до замовлення.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {products.map((product, i) => (
-              <ExhibitionCard
-                key={product.id}
-                product={product}
-                categoryLabel={getCategoryLabel(product.category)}
-                onOpen={() => setSelected(product)}
-                onZoom={() => openZoom(product.image_url!, i)}
-              />
-            ))}
-          </div>
-
-          <div className="flex justify-center mt-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
             <Link
               href="/catalog"
-              className="group flex items-center gap-3 border border-gold/30 text-gold
-                         font-body text-xs tracking-[0.3em] uppercase px-10 py-4
-                         hover:bg-gold/5 hover:border-gold transition-all duration-300"
+              className="inline-flex items-center gap-2.5 px-8 py-3 bg-gold text-obsidian font-body text-sm tracking-widest uppercase hover:bg-gold/90 transition-colors duration-300"
             >
-              Переглянути весь каталог
+              <LayoutGrid size={16} />
+              Перейти до каталогу
             </Link>
+            <button
+              onClick={() => setContactOpen(true)}
+              className="inline-flex items-center gap-2.5 px-8 py-3 border border-gold/40 text-gold font-body text-sm tracking-widest uppercase hover:bg-gold/10 transition-colors duration-300"
+            >
+              <MessageCircle size={16} />
+              Зв'язатись з нами
+            </button>
           </div>
+          <p className="font-body text-mist/40 text-xs tracking-widest uppercase">{photos.length} фотографій</p>
         </div>
       </section>
 
-      {/* Модалка товару */}
-      <ProductModal product={selected} onClose={() => setSelected(null)} />
+      {/* Masonry grid */}
+      <section className="py-12 bg-obsidian">
+        <div className="max-w-7xl mx-auto px-4 columns-2 sm:columns-3 lg:columns-4 xl:columns-5 gap-2.5">
+          {photos.map((src, idx) => (
+            <div
+              key={src}
+              className="group relative overflow-hidden border border-white/5 hover:border-gold/30 transition-all duration-500 cursor-zoom-in mb-2.5 break-inside-avoid"
+              onClick={() => setActive(idx)}
+            >
+              <Image
+                src={`/images/exhib/${src}`}
+                alt={`Виставка ${idx + 1}`}
+                width={600}
+                height={800}
+                className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-obsidian/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="w-10 h-10 bg-obsidian/60 border border-white/20 flex items-center justify-center">
+                  <ZoomIn size={16} className="text-gold" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-      {/* Lightbox фото */}
-      {zoomed && (
+      {/* Lightbox */}
+      {active != null && (
         <div
-          className="fixed inset-0 z-50 bg-obsidian/97 backdrop-blur-sm flex items-center justify-center"
-          onClick={() => setZoomed(null)}
+          className="fixed inset-0 z-50 bg-obsidian/95 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setActive(null)}
         >
-          <button onClick={() => setZoomed(null)}
-            className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center
-                       bg-white/5 hover:bg-white/10 text-mist hover:text-cream z-10">
+          {active > 0 && (
+            <button
+              onClick={e => { e.stopPropagation(); prev() }}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center bg-obsidian/70 hover:bg-obsidian border border-white/10 text-mist hover:text-gold transition-colors"
+            >
+              <ChevronLeft size={22} />
+            </button>
+          )}
+          <button
+            onClick={() => setActive(null)}
+            className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center bg-obsidian/70 hover:bg-obsidian border border-white/10 text-mist hover:text-cream transition-colors"
+          >
             <X size={18} />
           </button>
-          {photoUrls.length > 1 && (
-            <>
-              <button onClick={e => { e.stopPropagation(); prev() }}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center
-                           bg-white/5 hover:bg-white/10 text-mist hover:text-gold font-body text-2xl z-10">
-                ‹
-              </button>
-              <button onClick={e => { e.stopPropagation(); next() }}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center
-                           bg-white/5 hover:bg-white/10 text-mist hover:text-gold font-body text-2xl z-10">
-                ›
-              </button>
-            </>
-          )}
-          <div className="relative w-full h-full max-w-4xl max-h-[85vh] m-16"
-               onClick={e => e.stopPropagation()}>
-            <Image src={zoomed} alt="Пам'ятник" fill sizes="100vw" className="object-contain" priority />
+          <div className="relative max-w-4xl w-full" onClick={e => e.stopPropagation()}>
+            <Image
+              src={`/images/exhib/${photos[active]}`}
+              alt={`Виставка ${active + 1}`}
+              width={1200}
+              height={1600}
+              className="w-full h-auto max-h-[88vh] object-contain"
+              priority
+              sizes="(max-width: 768px) 100vw, 900px"
+            />
+            <p className="text-center font-body text-mist/30 text-xs tracking-widest mt-3">{active + 1} / {photos.length}</p>
           </div>
-          <p className="absolute bottom-4 left-1/2 -translate-x-1/2 font-body text-xs text-mist/30 tracking-wider">
-            {zoomIndex + 1} / {photoUrls.length}
-          </p>
+          {active < photos.length - 1 && (
+            <button
+              onClick={e => { e.stopPropagation(); next() }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center bg-obsidian/70 hover:bg-obsidian border border-white/10 text-mist hover:text-gold transition-colors"
+            >
+              <ChevronRight size={22} />
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Contact modal */}
+      {contactOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-obsidian/90 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setContactOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-lg bg-graphite border border-white/10 p-8"
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setContactOpen(false)}
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-obsidian/60 hover:bg-obsidian text-mist hover:text-cream transition-colors border border-white/10"
+            >
+              <X size={16} />
+            </button>
+
+            {isSubmitted ? (
+              <div className="text-center py-8">
+                <p className="text-gold text-3xl mb-4">◆</p>
+                <p className="font-display text-2xl text-cream mb-3">Дякуємо за звернення</p>
+                <p className="font-body text-mist text-sm">Наш спеціаліст зв'яжеться з вами найближчим часом.</p>
+              </div>
+            ) : (
+              <>
+                <h2 className="font-display text-2xl text-cream mb-2">Зв'яжіться з нами</h2>
+                <p className="font-body text-mist text-sm mb-6">Відповімо якнайшвидше.</p>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <label className="font-body text-xs tracking-wider text-mist uppercase mb-2 block">Ім'я</label>
+                    <input type="text" name="name" required placeholder="Іван Іваненко" value={formData.name} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className="font-body text-xs tracking-wider text-mist uppercase mb-2 block">Телефон</label>
+                    <input type="tel" name="phone" required placeholder="+380 (___) ___-__-__" value={formData.phone} onChange={handleChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className="font-body text-xs tracking-wider text-mist uppercase mb-2 block">Повідомлення</label>
+                    <textarea name="message" rows={3} placeholder="Опишіть ваш запит..." value={formData.message} onChange={handleChange} className={inputClass + ' resize-none'} />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-gold text-obsidian font-body text-sm tracking-widest uppercase py-3 hover:bg-gold/90 transition-colors disabled:opacity-50"
+                  >
+                    {isSubmitting ? 'Надсилаємо...' : 'Надіслати повідомлення'}
+                  </button>
+                </form>
+              </>
+            )}
+          </div>
         </div>
       )}
     </>
-  )
-}
-
-// Картка виставки
-function ExhibitionCard({ product, categoryLabel, onOpen, onZoom }: {
-  product: Product
-  categoryLabel: string
-  onOpen: () => void
-  onZoom: () => void
-}) {
-  const addItem = useCartStore(s => s.addItem)
-  const [added, setAdded] = useState(false)
-
-  const handleAdd = (e: React.MouseEvent) => {
-    e.stopPropagation()
-    addItem(product)
-    setAdded(true)
-    setTimeout(() => setAdded(false), 2000)
-  }
-
-  return (
-    <div className="group bg-ash border border-white/5 overflow-hidden
-                    hover:border-gold/20 transition-all duration-500 flex flex-col">
-      <div
-        className="relative bg-obsidian shrink-0 cursor-zoom-in"
-        style={{ paddingBottom: '100%' }}
-        onClick={onZoom}
-      >
-        {product.image_url && (
-          <Image
-            src={product.image_url}
-            alt={product.name}
-            fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-contain p-2 opacity-90 group-hover:opacity-100
-                       group-hover:scale-105 transition-all duration-700"
-          />
-        )}
-        <div className="absolute inset-0 bg-obsidian/20 opacity-0 group-hover:opacity-100
-                        transition-opacity duration-300 flex items-center justify-center">
-          <span className="font-body text-xs tracking-widest uppercase text-cream
-                           border border-white/30 px-3 py-1.5">Збільшити</span>
-        </div>
-      </div>
-
-      <div className="p-4 flex flex-col flex-1">
-        <p className="font-body text-[10px] text-gold/50 tracking-wider uppercase truncate mb-0.5">
-          {categoryLabel}
-        </p>
-        <p className="font-display text-sm text-cream truncate group-hover:text-gold
-                      transition-colors duration-300 mb-3 cursor-pointer"
-           onClick={onOpen}>
-          {product.name}
-        </p>
-        <div className="flex items-center justify-between mt-auto">
-          <span className="font-display text-base text-gold">{formatPrice(product.price)}</span>
-          <button onClick={handleAdd}
-            className="w-7 h-7 flex items-center justify-center
-                       bg-bordeaux/20 border border-bordeaux/30 text-cream
-                       hover:bg-bordeaux transition-all duration-300">
-            {added ? <Check size={11} /> : <ShoppingCart size={11} />}
-          </button>
-        </div>
-      </div>
-    </div>
   )
 }

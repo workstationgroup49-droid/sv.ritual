@@ -9,6 +9,7 @@ import { Footer } from '@/components/layout/Footer'
 import { SearchBar } from '@/components/catalog/SearchBar'
 import { FilterPanel } from '@/components/catalog/FilterPanel'
 import { ProductGrid } from '@/components/catalog/ProductGrid'
+import { CategoryQuickNav } from '@/components/catalog/CategoryQuickNav'
 import { SectionTitle } from '@/components/ui/SectionTitle'
 import { ProductCategory } from '@/types/product'
 
@@ -48,9 +49,11 @@ function CatalogContent() {
             className="pt-10"
           />
 
-          <div className="mb-8">
+          <div className="mb-6">
             <SearchBar value={search} onChange={setSearch} />
           </div>
+
+          <CategoryQuickNav activeCategory={category} onSelect={setCategory} />
 
           <div className="flex flex-col lg:flex-row gap-10">
             <aside className="w-full lg:w-56 shrink-0">
@@ -65,7 +68,7 @@ function CatalogContent() {
               />
             </aside>
 
-            <div className="flex-1">
+            <div className="flex-1" id="product-grid">
               <ProductGrid products={filtered} isLoading={isLoading} />
             </div>
           </div>

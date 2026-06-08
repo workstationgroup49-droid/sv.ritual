@@ -22,35 +22,35 @@ const services = [
     title: 'Організація та проведення поховань',
     description: 'Допомагаємо організувати поховання від першого звернення до завершення всіх необхідних процедур. Беремо на себе вирішення організаційних питань та супроводжуємо родину на кожному етапі.',
     features: ['Оформлення всіх документів', 'Підготовка тіла до похорону', 'Організація церемонії прощання', 'Координація всіх служб', 'Супровід на кожному етапі'],
-    image: null,
+    image: '/images/service-funeral.jpg',
   },
   {
     number: '02',
     title: 'Елітні катафалки',
     description: 'Надаємо сучасний спеціалізований транспорт для перевезення померлих та супроводу похоронної процесії. Гарантуємо охайний вигляд транспорту та професійне обслуговування.',
     features: ['Представницькі автомобілі преміум-класу', 'Досвідчені та тактовні водії', 'Будь-який маршрут у межах регіону', 'Повна підготовка транспорту', 'Своєчасне прибуття'],
-    image: null,
+    image: '/images/service-hearse.png',
   },
   {
     number: '03',
     title: 'Кремація',
     description: 'Організовуємо кремацію та допомагаємо з оформленням необхідних документів. Надаємо консультації щодо всіх етапів проведення процедури та допомагаємо з вибором урни.',
     features: ['Оформлення дозволів та документів', 'Широкий вибір урн', 'Транспортування до крематорію', 'Організація прощальної церемонії', 'Повний консультаційний супровід'],
-    image: null,
+    image: '/images/service-cremation.jpg',
   },
   {
     number: '04',
     title: 'Перевезення померлих по Україні',
     description: 'Здійснюємо транспортування померлих між містами та областями України. Допомагаємо з оформленням документів та забезпечуємо дотримання всіх необхідних санітарних вимог.',
     features: ['По всій території України', 'Дотримання санітарних норм', 'Швидке реагування на виклик', 'Оформлення транспортних документів', 'Спеціалізований транспорт'],
-    image: null,
+    image: '/images/service-transport.png',
   },
   {
     number: '05',
     title: 'Підготовка місця поховання',
     description: 'Виконуємо копання могил та підготовку місця поховання відповідно до вимог кладовищ та побажань родини. Ручна та механізована копка, впорядкування після церемонії.',
     features: ['Ручна та механізована копка', 'Робота на будь-якому кладовищі', 'Відповідність вимогам кладовища', 'Впорядкування після церемонії', 'Швидко та якісно'],
-    image: null,
+    image: '/images/service-grave.png',
   },
 ]
 
@@ -124,7 +124,7 @@ export function RitualServicesPage() {
                       <img src={service.image} alt={service.title} className="absolute inset-0 w-full h-full object-cover opacity-70" />
                     ) : (
                       /* Плейсхолдер — замінити на фото */
-                      <div className="absolute inset-0 bg-graphite flex flex-col items-center justify-center gap-3">
+                      <div className="absolute inset-0 bg-ash flex flex-col items-center justify-center gap-3">
                         <div className="w-16 h-16 border border-gold/20 flex items-center justify-center">
                           <span className="font-display text-3xl text-gold/20">{service.number}</span>
                         </div>
@@ -187,7 +187,7 @@ export function RitualServicesPage() {
       </section>
 
       {/* ═══ ПАМ'ЯТНИКИ ═══ */}
-      <section className="py-24 bg-graphite border-t border-white/5">
+      <section className="py-24 bg-obsidian border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
@@ -214,7 +214,7 @@ export function RitualServicesPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10">
                 {monumentTypes.map((type, i) => (
                   <div key={i}
-                    className="flex items-center gap-3 bg-ash border border-white/5
+                    className="flex items-center gap-3 bg-graphite border border-white/5
                                px-4 py-3 hover:border-gold/20 transition-colors duration-300">
                     <span className="text-gold/50 shrink-0">◆</span>
                     <span className="font-body text-sm text-mist">{type}</span>
@@ -241,7 +241,7 @@ export function RitualServicesPage() {
 
             {/* Право — художнє оформлення */}
             <div>
-              <div className="bg-obsidian border border-white/5 p-8 mb-6">
+              <div className="bg-graphite border border-white/5 p-8 mb-6">
                 <p className="font-body text-xs tracking-[0.3em] uppercase text-gold mb-6">
                   Художнє оформлення
                 </p>
@@ -265,11 +265,11 @@ export function RitualServicesPage() {
               <div className="grid grid-cols-2 gap-px bg-white/5">
                 {[
                   { value: '10+',    label: 'Років у виробництві' },
-                  { value: '1 000+', label: 'Виготовлених пам\'ятників' },
+                  { value: '1 000+', label: "Виготовлених пам'ятників" },
                   { value: '100%',   label: 'Натуральний граніт' },
                   { value: '5★',     label: 'Якість та гарантія' },
                 ].map(stat => (
-                  <div key={stat.label} className="bg-obsidian px-6 py-6">
+                  <div key={stat.label} className="bg-graphite px-6 py-6">
                     <p className="font-display text-3xl font-light text-gold mb-1">{stat.value}</p>
                     <p className="font-body text-mist/60 text-xs tracking-wider uppercase">{stat.label}</p>
                   </div>
