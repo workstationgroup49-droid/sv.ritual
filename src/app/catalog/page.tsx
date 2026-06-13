@@ -11,6 +11,7 @@ import { FilterPanel } from '@/components/catalog/FilterPanel'
 import { ProductGrid } from '@/components/catalog/ProductGrid'
 import { CategoryQuickNav } from '@/components/catalog/CategoryQuickNav'
 import { SectionTitle } from '@/components/ui/SectionTitle'
+import { EpitaphsGrid } from '@/components/catalog/EpitaphsGrid'
 import { ProductCategory } from '@/types/product'
 
 function CatalogContent() {
@@ -69,7 +70,11 @@ function CatalogContent() {
             </aside>
 
             <div className="flex-1" id="product-grid">
-              <ProductGrid products={filtered} isLoading={isLoading} />
+              {category === 'epitaphs' ? (
+                <EpitaphsGrid />
+              ) : (
+                <ProductGrid products={filtered} isLoading={isLoading} />
+              )}
             </div>
           </div>
         </div>

@@ -4,7 +4,7 @@ import { Phone, MapPin } from 'lucide-react'
 import { Divider } from '@/components/ui/Divider'
 
 const PHONE         = '+380970187187'
-const PHONE_DISPLAY = '+380 (97) 018-71-87'
+const PHONE_DISPLAY = '+380 (97) 0-187-187'
 
 const messengers = [
   {

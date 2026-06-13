@@ -10,7 +10,7 @@ import { useCartStore } from '@/store/cartStore'
 import { useCategories } from '@/hooks/useCategories'
 
 const PHONE = '+380970187187'
-const PHONE_DISPLAY = '+380 (97) 018-71-87'
+const PHONE_DISPLAY = '+380 (97) 0-187-187'
 
 const navLinks = [
   { href: '/',           label: 'Головна' },

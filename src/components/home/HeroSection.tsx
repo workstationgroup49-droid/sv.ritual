@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/Button'
 import { ChevronDown, Phone } from 'lucide-react'
 
 const PHONE = '+380970187187'
-const PHONE_DISPLAY = '+380 (97) 018-71-87'
+const PHONE_DISPLAY = '+380 (97) 0-187-187'
 
 export function HeroSection() {
   return (
@@ -30,9 +30,9 @@ export function HeroSection() {
         </p>
 
         {/* Головний заголовок */}
-        <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-light text-cream leading-[1.1] mb-6 animate-slide-up animate-hidden">
+        <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6 animate-slide-up animate-hidden">
           Ритуальні послуги<br/>
-          <span className="text-gold/80 italic">та виготовлення пам&apos;ятників</span>
+          Виготовлення пам&apos;ятників
         </h1>
 
         {/* Підзаголовок */}
@@ -44,8 +44,8 @@ export function HeroSection() {
         {/* Три переваги */}
         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 mb-12 animate-slide-up-d animate-hidden">
           {['Організація поховань', 'Елітний катафалк', 'Пам\'ятники з граніту'].map((item, i) => (
-            <span key={i} className="flex items-center gap-2 font-body text-xs text-mist/70 tracking-wider">
-              <span className="w-1 h-1 rounded-full bg-gold/60 shrink-0" />
+            <span key={i} className="flex items-center gap-2 font-body text-sm text-white tracking-[0.2em] font-light">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0" />
               {item}
             </span>
           ))}

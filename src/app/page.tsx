@@ -5,6 +5,7 @@ import { ServicesSection } from '@/components/home/ServicesSection'
 import { FeaturedSection } from '@/components/home/FeaturedSection'
 import { AboutSection } from '@/components/home/AboutSection'
 import { ContactSection } from '@/components/home/ContactSection'
+import { BranchesSection } from '@/components/home/BranchesSection'
 import { ReviewsSection } from '@/components/home/ReviewsSection'
 
 export default function HomePage() {
@@ -17,6 +18,7 @@ export default function HomePage() {
         <FeaturedSection />
         <AboutSection />
         <ContactSection />
+        <BranchesSection />
         <ReviewsSection />
       </main>
       <Footer />

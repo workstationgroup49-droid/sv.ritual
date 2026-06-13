@@ -6,7 +6,7 @@ import { SectionTitle } from '@/components/ui/SectionTitle'
 import { Phone, MapPin, Clock } from 'lucide-react'
 
 const PHONE = '+380970187187'
-const PHONE_DISPLAY = '+380 (97) 018-71-87'
+const PHONE_DISPLAY = '+380 (97) 0-187-187'
 
 const inputClass = `
   w-full bg-ash border border-white/10 text-cream placeholder-mist/50
